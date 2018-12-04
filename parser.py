@@ -1,72 +1,164 @@
-import ply.lex as lex
 import ply.yacc as yacc
+from lexer import tokens
 
 
-reserved = {
-    'from': 'FROM',
-    'select': 'SELECT',
-    'where': 'WHERE'
-}
-
-tokens = [
-    'COMMA',
-    'NAME',
-    'SEMICOLON'
-] + list(reserved.values())
-
-t_COMMA = ','
-t_SEMICOLON = ';'
-
-
-def t_NAME(t):
-    """[a-zA-Z_][a-zA-Z0-9_]*"""
-    t.type = reserved.get(t.value.lower(), 'NAME')
-    return t
-
-
-t_ignore = ' \t'
-
-
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
-
-
-lex.lex()
-
-features = {
-    'projection': [],
-    'selection': []
-}
+precedence = [
+    ('left', 'OR'),
+    ('left', 'AND'),
+    ('right', 'NOT'),
+    ('left', 'IS', 'LIKE', 'BETWEEN', 'IN', 'EQ', 'NE'),
+    ('left', 'GT', 'LE', 'LT', 'GE')
+]
 
 
 def p_statement(p):
-    """statement : SELECT projection FROM selection WHERE predicate SEMICOLON"""
-    p[0] = p[1]
+    """statement : SELECT select FROM from where SEMICOLON"""
+    p[0] = {
+        'type': 'select_statement',
+        'select': p[2],
+        'from': p[4],
+        'where': p[5]
+    }
 
 
-def p_projection(p):
-    """projection : projection COMMA NAME
-                  | NAME"""
-    features['projection'].append(p[3] if len(p) == 4 else p[1])
+def p_select(p):
+    """select : select COMMA expression as
+              | expression as"""
+    if len(p) == 5:
+        p[0] = p[1]
+        select_node = dict(p[3], **p[4])
+    else:
+        p[0] = []
+        select_node = dict(p[1], **p[2])
+    p[0].append(select_node)
 
 
-def p_selection(p):
-    """selection : selection COMMA NAME
-                 | NAME"""
-    features['selection'].append(p[3] if len(p) == 4 else p[1])
+def p_from(p):
+    """from : from COMMA NAME as
+            | NAME as"""
+    from_node = {'type': 'reference'}
+    if len(p) == 5:
+        p[0] = p[1]
+        from_node['reference'] = p[3]
+        from_node.update(p[4])
+    else:
+        p[0] = []
+        from_node['reference'] = p[1]
+        from_node.update(p[2])
+    p[0].append(from_node)
 
 
-def p_predicate(p):
-    """predicate : """
+def p_where(p):
+    """where : WHERE expression"""
+    p[0] = p[2]
+
+
+def p_expression(p):
+    """expression : term
+                  | NAME
+                  | NAME DOT NAME
+                  | LP expression RP
+                  | NAME LP expression RP
+                  | expression AND expression
+                  | expression OR expression
+                  | expression LT expression
+                  | expression GT expression
+                  | expression LE expression
+                  | expression GE expression
+                  | expression EQ expression
+                  | expression NE expression
+                  | expression IS expression
+                  | expression like expression %prec LIKE
+                  | expression between bounds %prec BETWEEN
+                  | expression in LP expression_list RP
+                  """
+    e = {}
+    if len(p) == 2:
+        if isinstance(p[1], dict):
+            e = p[1]
+        else:
+            e['type'] = 'reference'
+            e['reference'] = p[1]
+    elif len(p) > 3:
+        if p[2] == '.':
+            e['type'] = 'reference_dot'
+            e['reference_left'] = p[1]
+            e['reference_right'] = p[3]
+        elif p[1] == '(':
+            e = p[2]
+        elif p[2] == '(':
+            e['type'] = 'function'
+            e['function'] = p[1]
+            e['argument'] = p[3]
+        else:
+            e['type'] = 'operation'
+            e['operation'] = p[2]
+            e['left'] = p[1]
+            if p[3] == '(':
+                e['right'] = p[4]
+            else:
+                e['right'] = p[3]
+    p[0] = e
+
+
+def p_term(p):
+    """term : NULL
+            | NOT NULL
+            | INTEGER
+            | STRING"""
+    p[0] = {
+        'type': 'term',
+        'term': ' '.join(p[1:])
+    }
+
+
+def p_like(p):
+    """like : LIKE
+            | NOT LIKE"""
+    p[0] = ' '.join(p[1:])
+
+
+def p_between(p):
+    """between : BETWEEN
+               | NOT BETWEEN"""
+    p[0] = ' '.join(p[1:])
+
+
+def p_bounds(p):
+    """bounds : term AND term"""
+    p[0] = {
+        'type': 'bounds',
+        'left': p[1],
+        'right': p[3]
+    }
+
+
+def p_in(p):
+    """in : IN
+          | NOT IN"""
+    p[0] = ' '.join(p[1:])
+
+
+def p_expression_list(p):
+    """expression_list : expression_list COMMA expression
+                       | expression"""
+    if len(p) == 4:
+        p[0] = p[1]
+        expression_node = p[3]
+    else:
+        p[0] = []
+        expression_node = p[1]
+    p[0].append(expression_node)
+
+
+def p_as(p):
+    """as : AS NAME
+          | """
+    p[0] = {'alias': p[2] if len(p) == 3 else {}}
 
 
 def p_error(p):
-    print("Syntax error at '%s'" % p.value)
+    print('Syntax error at \'{}\''.format(p.value))
 
 
-yacc.yacc()
-
-
-yacc.parse('SELECT a, b FROM c, d WHERE;')
-print(features)
+parser = yacc.yacc()
