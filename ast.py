@@ -1,57 +1,156 @@
-from parser import precedence
+class Node:
+    def __init__(self, t):
+        self.t = t
+
+    def get_children(self):
+        return []
 
 
-def reconstruct_sql(ast):
+class SelectNode(Node):
+    def __init__(self, columns, tables, predicate):
+        super().__init__('select')
+        self.columns = columns
+        self.tables = tables
+        self.predicate = predicate
 
-    if isinstance(ast, list):
-        return ', '.join(reconstruct_sql(item) for item in ast)
+    def get_children(self):
+        return [self.columns, self.tables, self.predicate]
 
-    if 'type' not in ast:
-        print(ast)
-    ast_type = ast['type']
-
-    if ast_type == 'select_statement':
-        return 'SELECT {} FROM {} WHERE {};'.format(reconstruct_sql(ast['select']),
-                                                    reconstruct_sql(ast['from']),
-                                                    reconstruct_sql(ast['where']))
-    if ast_type == 'reference':
-        return format_alias(ast['reference'], ast)
-
-    if ast_type == 'reference_dot':
-        return format_alias('{}.{}'.format(ast['reference_left'], ast['reference_right']), ast)
-
-    if ast_type == 'function':
-        return format_alias('{}({})'.format(ast['function'], reconstruct_sql(ast['argument'])), ast)
-
-    if ast_type == 'operation':
-        left = reconstruct_sql(ast['left'])
-        right = reconstruct_sql(ast['right'])
-        if ast['left']['type'] == 'operation' and ast['right']['type'] == 'operation':
-            operation_precedence = get_operation_precedence(ast['operation'])
-            left = format_operation(left, get_operation_precedence(ast['left']['operation']), operation_precedence)
-            right = format_operation(right, get_operation_precedence(ast['right']['operation']), operation_precedence)
-        elif isinstance(ast['right'], list):
-            right = '({})'.format(right)
-        return '{} {} {}'.format(left, ast['operation'], right)
-
-    if ast_type == 'term':
-        return ast['term']
-
-    if ast_type == 'bounds':
-        return '{} AND {}'.format(reconstruct_sql(ast['left']), reconstruct_sql(ast['right']))
+    def to_sql(self):
+        return 'SELECT {} FROM {} WHERE {};'.format(self.columns.to_sql(),
+                                                    self.tables.to_sql(),
+                                                    self.predicate.to_sql())
 
 
-def format_alias(reference, ast):
-    if 'alias' in ast:
-        return '{} AS {}'.format(reference, ast['alias'])
-    return reference
+class ListNode(Node):
+    def __init__(self):
+        super().__init__('list')
+        self.items = []
+
+    def get_children(self):
+        return self.items
+
+    def to_sql(self):
+        return ', '.join(item.to_sql() for item in self.items)
 
 
-def get_operation_precedence(operation):
-    return next((i for i, v in enumerate(precedence) if operation in v), None)
+class ReferenceNode(Node):
+    def __init__(self, reference, alias=None):
+        super().__init__('reference')
+        self.reference = reference
+        self.alias = alias
+
+    def to_sql(self):
+        if self.alias is None:
+            return self.reference
+        return '{} AS {}'.format(self.reference, self.alias)
 
 
-def format_operation(operation, operation_precedence, parent_precedence):
-    if operation_precedence is not None and operation_precedence < parent_precedence:
-        return '({})'.format(operation)
-    return operation
+class ReferenceDotNode(Node):
+    def __init__(self, reference_left, reference_right, alias=None):
+        super().__init__('reference_dot')
+        self.reference_left = reference_left
+        self.reference_right = reference_right
+        self.alias = alias
+
+    def to_sql(self):
+        if self.alias is None:
+            return '{}.{}'.format(self.reference_left, self.reference_right)
+        return '{}.{} AS {}'.format(self.reference_left, self.reference_right, self.alias)
+
+
+class FunctionNode(Node):
+    def __init__(self, function, argument, alias=None):
+        super().__init__('function')
+        self.function = function
+        self.argument = argument
+        self.alias = alias
+
+    def get_children(self):
+        return [self.argument]
+
+    def to_sql(self):
+        if self.alias is None:
+            return '{}({})'.format(self.function, self.argument.to_sql())
+        return '{}({}) AS {}'.format(self.function, self.argument.to_sql(), self.alias)
+
+
+class OperationNode(Node):
+    def __init__(self, operation, left, right, precedence=None):
+        super().__init__('operation')
+        self.operation = operation
+        self.left = left
+        self.right = right
+        self.precedence = precedence
+
+    def get_children(self):
+        return [self.left, self.right]
+
+    def to_sql(self):
+        left_sql = self.left.to_sql()
+        right_sql = self.right.to_sql()
+        if self.left.t == self.t and self.right.t == self.t:
+            if self.left.precedence is not None and self.left.precedence < self.precedence:
+                left_sql = '({})'.format(left_sql)
+            if self.right.precedence is not None and self.right.precedence < self.precedence:
+                right_sql = '({})'.format(right_sql)
+        elif isinstance(self.right, list):
+            right_sql = '({})'.format(right_sql)
+        return '{} {} {}'.format(left_sql, self.operation, right_sql)
+
+
+class TermNode(Node):
+    def __init__(self, term):
+        super().__init__('term')
+        self.term = term
+
+    def to_sql(self):
+        return self.term
+
+
+class BoundsNode(Node):
+    def __init__(self, left, right):
+        super().__init__('bounds')
+        self.left = left
+        self.right = right
+
+    def get_children(self):
+        return [self.left, self.right]
+
+    def to_sql(self):
+        return '{} AND {}'.format(self.left.to_sql(), self.right.to_sql())
+
+
+def get_nodes(node, predicate):
+    nodes = []
+    get_nodes_helper(node, predicate, nodes)
+    return nodes
+
+
+def get_nodes_helper(node, predicate, nodes):
+    if predicate(node):
+        nodes.append(node)
+    for child in node.get_children():
+        get_nodes_helper(child, predicate, nodes)
+
+
+def get_selection_predicates(node):
+    selections = get_nodes(node, is_selection_predicate)
+    return [selection.to_sql() for selection in selections]
+
+
+def get_join_predicates(node):
+    joins = get_nodes(node, is_join_predicate)
+    return [join.to_sql() for join in joins]
+
+
+def is_selection_predicate(node):
+    selection_operations = ['<', '>', '<=', '>=', '=', '!=', 'IS', 'LIKE', 'NOT LIKE', 'BETWEEN', 'NOT BETWEEN', 'IN']
+    return node.t == 'operation' and node.operation in selection_operations and not node.right.t == 'reference_dot'
+
+
+def is_join_predicate(node):
+    return node.t == 'operation' \
+           and node.operation == '=' \
+           and node.left.t == 'reference_dot' \
+           and node.right.t == 'reference_dot'

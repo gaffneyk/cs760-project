@@ -1,6 +1,8 @@
 import ply.yacc as yacc
 from lexer import tokens
 
+import ast
+
 
 precedence = [
     ('left', 'OR'),
@@ -13,12 +15,7 @@ precedence = [
 
 def p_statement(p):
     """statement : SELECT select FROM from where SEMICOLON"""
-    p[0] = {
-        'type': 'select_statement',
-        'select': p[2],
-        'from': p[4],
-        'where': p[5]
-    }
+    p[0] = ast.SelectNode(columns=p[2], tables=p[4], predicate=p[5])
 
 
 def p_select(p):
@@ -26,26 +23,23 @@ def p_select(p):
               | expression as"""
     if len(p) == 5:
         p[0] = p[1]
-        select_node = dict(p[3], **p[4])
+        column = p[3]
     else:
-        p[0] = []
-        select_node = dict(p[1], **p[2])
-    p[0].append(select_node)
+        p[0] = ast.ListNode()
+        column = p[1]
+    p[0].items.append(column)
 
 
 def p_from(p):
     """from : from COMMA NAME as
             | NAME as"""
-    from_node = {'type': 'reference'}
     if len(p) == 5:
         p[0] = p[1]
-        from_node['reference'] = p[3]
-        from_node.update(p[4])
+        table = ast.ReferenceNode(reference=p[3], alias=p[4])
     else:
-        p[0] = []
-        from_node['reference'] = p[1]
-        from_node.update(p[2])
-    p[0].append(from_node)
+        p[0] = ast.ListNode()
+        table = ast.ReferenceNode(reference=p[1], alias=p[2])
+    p[0].items.append(table)
 
 
 def p_where(p):
@@ -72,33 +66,22 @@ def p_expression(p):
                   | expression between bounds %prec BETWEEN
                   | expression in LP expression_list RP
                   """
-    e = {}
     if len(p) == 2:
-        if isinstance(p[1], dict):
-            e = p[1]
+        if isinstance(p[1], ast.Node):
+            p[0] = p[1]
         else:
-            e['type'] = 'reference'
-            e['reference'] = p[1]
+            p[0] = ast.ReferenceNode(reference=p[1])
     elif len(p) > 3:
         if p[2] == '.':
-            e['type'] = 'reference_dot'
-            e['reference_left'] = p[1]
-            e['reference_right'] = p[3]
+            p[0] = ast.ReferenceDotNode(reference_left=p[1], reference_right=p[3])
         elif p[1] == '(':
-            e = p[2]
+            p[0] = p[2]
         elif p[2] == '(':
-            e['type'] = 'function'
-            e['function'] = p[1]
-            e['argument'] = p[3]
+            p[0] = ast.FunctionNode(function=p[1], argument=p[3])
         else:
-            e['type'] = 'operation'
-            e['operation'] = p[2]
-            e['left'] = p[1]
-            if p[3] == '(':
-                e['right'] = p[4]
-            else:
-                e['right'] = p[3]
-    p[0] = e
+            right = p[4] if p[3] == '(' else p[3]
+            prec = next((i for i, v in enumerate(precedence) if p[2] in v), None)
+            p[0] = ast.OperationNode(operation=p[2], left=p[1], right=right, precedence=prec)
 
 
 def p_term(p):
@@ -106,10 +89,7 @@ def p_term(p):
             | NOT NULL
             | INTEGER
             | STRING"""
-    p[0] = {
-        'type': 'term',
-        'term': ' '.join(p[1:])
-    }
+    p[0] = ast.TermNode(term=' '.join(p[1:]))
 
 
 def p_like(p):
@@ -126,11 +106,7 @@ def p_between(p):
 
 def p_bounds(p):
     """bounds : term AND term"""
-    p[0] = {
-        'type': 'bounds',
-        'left': p[1],
-        'right': p[3]
-    }
+    p[0] = ast.BoundsNode(left=p[1], right=p[3])
 
 
 def p_in(p):
@@ -144,17 +120,17 @@ def p_expression_list(p):
                        | expression"""
     if len(p) == 4:
         p[0] = p[1]
-        expression_node = p[3]
+        expression = p[3]
     else:
-        p[0] = []
-        expression_node = p[1]
-    p[0].append(expression_node)
+        p[0] = ast.ListNode()
+        expression = p[1]
+    p[0].items.append(expression)
 
 
 def p_as(p):
     """as : AS NAME
           | """
-    p[0] = {'alias': p[2] if len(p) == 3 else {}}
+    p[0] = p[2] if len(p) == 3 else None
 
 
 def p_error(p):
