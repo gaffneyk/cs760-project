@@ -24,9 +24,11 @@ def p_select(p):
     if len(p) == 5:
         p[0] = p[1]
         column = p[3]
+        column.alias = p[4]
     else:
         p[0] = ast.ListNode()
         column = p[1]
+        column.alias = p[2]
     p[0].items.append(column)
 
 

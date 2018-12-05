@@ -1,9 +1,13 @@
 class Node:
-    def __init__(self, t):
+    def __init__(self, t, alias=None):
         self.t = t
+        self.alias = alias
 
     def get_children(self):
         return []
+
+    def to_sql(self):
+        return ''
 
 
 class SelectNode(Node):
@@ -16,7 +20,7 @@ class SelectNode(Node):
     def get_children(self):
         return [self.columns, self.tables, self.predicate]
 
-    def to_sql(self):
+    def to_sql(self, use_aliases=True):
         return 'SELECT {} FROM {} WHERE {};'.format(self.columns.to_sql(),
                                                     self.tables.to_sql(),
                                                     self.predicate.to_sql())
@@ -36,9 +40,8 @@ class ListNode(Node):
 
 class ReferenceNode(Node):
     def __init__(self, reference, alias=None):
-        super().__init__('reference')
+        super().__init__('reference', alias)
         self.reference = reference
-        self.alias = alias
 
     def to_sql(self):
         if self.alias is None:
@@ -48,10 +51,9 @@ class ReferenceNode(Node):
 
 class ReferenceDotNode(Node):
     def __init__(self, reference_left, reference_right, alias=None):
-        super().__init__('reference_dot')
+        super().__init__('reference_dot', alias)
         self.reference_left = reference_left
         self.reference_right = reference_right
-        self.alias = alias
 
     def to_sql(self):
         if self.alias is None:
@@ -61,10 +63,9 @@ class ReferenceDotNode(Node):
 
 class FunctionNode(Node):
     def __init__(self, function, argument, alias=None):
-        super().__init__('function')
+        super().__init__('function', alias)
         self.function = function
         self.argument = argument
-        self.alias = alias
 
     def get_children(self):
         return [self.argument]
@@ -136,17 +137,34 @@ def get_nodes_helper(node, predicate, nodes):
 
 def get_selection_predicates(node):
     selections = get_nodes(node, is_selection_predicate)
+    aliases = get_aliases(node)
+    for i, selection in enumerate(selections):
+        left = selection.left.reference_left
+        if left in aliases:
+            selections[i].left.reference_left = aliases[left]
     return [selection.to_sql() for selection in selections]
-
-
-def get_join_predicates(node):
-    joins = get_nodes(node, is_join_predicate)
-    return [join.to_sql() for join in joins]
 
 
 def is_selection_predicate(node):
     selection_operations = ['<', '>', '<=', '>=', '=', '!=', 'IS', 'LIKE', 'NOT LIKE', 'BETWEEN', 'NOT BETWEEN', 'IN']
-    return node.t == 'operation' and node.operation in selection_operations and not node.right.t == 'reference_dot'
+    return node.t == 'operation' and \
+           node.operation in selection_operations \
+           and node.left.t == 'reference_dot' \
+           and not node.right.t == 'reference_dot'
+
+
+def get_join_predicates(node):
+    joins = get_nodes(node, is_join_predicate)
+    aliases = get_aliases(node)
+    for i, join in enumerate(joins):
+        left = join.left.reference_left
+        if left in aliases:
+            joins[i].left.reference_left = aliases[left]
+        right = join.right.reference_left
+        if right in aliases:
+            joins[i].right.reference_left = aliases[right]
+
+    return [join.to_sql() for join in joins]
 
 
 def is_join_predicate(node):
@@ -154,3 +172,7 @@ def is_join_predicate(node):
            and node.operation == '=' \
            and node.left.t == 'reference_dot' \
            and node.right.t == 'reference_dot'
+
+
+def get_aliases(node):
+    return {n.alias: n.reference for n in get_nodes(node, lambda x: x.t == 'reference' and x.alias is not None)}
