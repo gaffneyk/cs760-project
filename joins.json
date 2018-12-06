@@ -266,25 +266,25 @@
   {
     "left_table_name": "title",
     "left_column_name": "id",
-    "right_table_name": "at",
+    "right_table_name": "aka_title",
     "right_column_name": "movie_id"
   },
   {
     "left_table_name": "movie_keyword",
     "left_column_name": "movie_id",
-    "right_table_name": "at",
+    "right_table_name": "aka_title",
     "right_column_name": "movie_id"
   },
   {
     "left_table_name": "movie_info",
     "left_column_name": "movie_id",
-    "right_table_name": "at",
+    "right_table_name": "aka_title",
     "right_column_name": "movie_id"
   },
   {
     "left_table_name": "movie_companies",
     "left_column_name": "movie_id",
-    "right_table_name": "at",
+    "right_table_name": "aka_title",
     "right_column_name": "movie_id"
   },
   {

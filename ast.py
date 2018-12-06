@@ -1,6 +1,3 @@
-from parser import precedence as operator_precedence
-
-
 class Node:
     def __init__(self, t, alias=None):
         self.t = t
@@ -142,7 +139,7 @@ class TermNode(Node):
 
     def to_sql(self):
         if isinstance(self.term, str) and self.term not in ['NULL', 'NOT NULL']:
-            return '"{}"'.format(self.term)
+            return '\'{}\''.format(self.term.replace('\'', '\'\''))
         return str(self.term)
 
 

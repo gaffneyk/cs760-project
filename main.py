@@ -1,8 +1,6 @@
 import argparse
 import os
 
-from generate import generate_queries
-
 
 def main():
     argument_parser = argparse.ArgumentParser()
@@ -15,8 +13,6 @@ def main():
         with open(os.path.join(args.sql_dir, sql_file), 'r') as f:
             sql = f.read()
             sqls.append(sql)
-
-    generate_queries(sqls)
 
 
 if __name__ == '__main__':
