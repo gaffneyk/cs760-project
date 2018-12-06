@@ -47,12 +47,6 @@ def generate_queries():
                     if selection_spec['data_type'] in ['text', 'character varying'] \
                     else random.choice(numeric_operations)
 
-                # all queries must include at least one selection of the form "attribute = value", otherwise the query
-                # may be intractable
-                if i == len(sampled_selection_specs) - 1 \
-                        and not any(selection.operation == '=' for selection in selections):
-                    operation = '='
-
                 # create the node for the right side of the selection
                 if operation == 'IS':
                     right = ast.TermNode(random.choice(['NULL', 'NOT NULL']))
@@ -68,7 +62,7 @@ def generate_queries():
 
                 elif operation == 'IN':
                     if 'values' in selection_spec:
-                        terms = random.sample(selection_spec['values'], k=3)
+                        terms = random.sample(selection_spec['values'], k=len(selection_spec['values']))
                     else:
                         k = random.randint(1, 10)
                         terms = random.sample(range(selection_spec['range'][0], selection_spec['range'][1] + 1), k)
