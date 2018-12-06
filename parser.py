@@ -8,7 +8,7 @@ precedence = [
     ('left', 'OR'),
     ('left', 'AND'),
     ('right', 'NOT'),
-    ('left', 'IS', 'LIKE', 'BETWEEN', 'IN', 'EQ', 'NE'),
+    ('left', 'IS', 'BETWEEN', 'IN', 'EQ', 'NE'),
     ('left', 'GT', 'LE', 'LT', 'GE')
 ]
 
@@ -57,16 +57,15 @@ def p_expression(p):
                   | NAME LP expression RP
                   | expression AND expression
                   | expression OR expression
-                  | expression LT expression
-                  | expression GT expression
-                  | expression LE expression
-                  | expression GE expression
+                  | expression LT term
+                  | expression GT term
+                  | expression LE term
+                  | expression GE term
                   | expression EQ expression
-                  | expression NE expression
+                  | expression NE term
                   | expression IS expression
-                  | expression like expression %prec LIKE
                   | expression between bounds %prec BETWEEN
-                  | expression in LP expression_list RP
+                  | expression in LP term_list RP
                   """
     if len(p) == 2:
         if isinstance(p[1], ast.Node):
@@ -94,12 +93,6 @@ def p_term(p):
     p[0] = ast.TermNode(term=' '.join(p[1:]))
 
 
-def p_like(p):
-    """like : LIKE
-            | NOT LIKE"""
-    p[0] = ' '.join(p[1:])
-
-
 def p_between(p):
     """between : BETWEEN
                | NOT BETWEEN"""
@@ -117,16 +110,16 @@ def p_in(p):
     p[0] = ' '.join(p[1:])
 
 
-def p_expression_list(p):
-    """expression_list : expression_list COMMA expression
-                       | expression"""
+def p_term_list(p):
+    """term_list : term_list COMMA term
+                 | term"""
     if len(p) == 4:
         p[0] = p[1]
-        expression = p[3]
+        term = p[3]
     else:
         p[0] = ast.ListNode()
-        expression = p[1]
-    p[0].items.append(expression)
+        term = p[1]
+    p[0].items.append(term)
 
 
 def p_as(p):

@@ -8,7 +8,6 @@ reserved = {
     'from': 'FROM',
     'in': 'IN',
     'is': 'IS',
-    'like': 'LIKE',
     'not': 'NOT',
     'null': 'NULL',
     'or': 'OR',
