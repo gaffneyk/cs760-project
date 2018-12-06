@@ -1,0 +1,320 @@
+[
+  {
+    "left_table": "movie_info",
+    "left_column": "movie_id",
+    "right_table": "title",
+    "right_column": "id"
+  },
+  {
+    "left_table": "info_type",
+    "left_column": "id",
+    "right_table": "movie_info",
+    "right_column": "info_type_id"
+  },
+  {
+    "left_table": "kind_type",
+    "left_column": "id",
+    "right_table": "title",
+    "right_column": "kind_id"
+  },
+  {
+    "left_table": "movie_companies",
+    "left_column": "movie_id",
+    "right_table": "title",
+    "right_column": "id"
+  },
+  {
+    "left_table": "company_name",
+    "left_column": "id",
+    "right_table": "movie_companies",
+    "right_column": "company_id"
+  },
+  {
+    "left_table": "company_type",
+    "left_column": "id",
+    "right_table": "movie_companies",
+    "right_column": "company_type_id"
+  },
+  {
+    "left_table": "movie_info_idx",
+    "left_column": "movie_id",
+    "right_table": "title",
+    "right_column": "id"
+  },
+  {
+    "left_table": "info_type",
+    "left_column": "id",
+    "right_table": "movie_info_idx",
+    "right_column": "info_type_id"
+  },
+  {
+    "left_table": "movie_info",
+    "left_column": "movie_id",
+    "right_table": "movie_info_idx",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info",
+    "left_column": "movie_id",
+    "right_table": "movie_companies",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info_idx",
+    "left_column": "movie_id",
+    "right_table": "movie_companies",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "title",
+    "left_column": "id",
+    "right_table": "movie_keyword",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_keyword",
+    "left_column": "movie_id",
+    "right_table": "movie_info",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "keyword",
+    "left_column": "id",
+    "right_table": "movie_keyword",
+    "right_column": "keyword_id"
+  },
+  {
+    "left_table": "title",
+    "left_column": "id",
+    "right_table": "cast_info",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "title",
+    "left_column": "id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_companies",
+    "left_column": "movie_id",
+    "right_table": "cast_info",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_companies",
+    "left_column": "movie_id",
+    "right_table": "movie_keyword",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_companies",
+    "left_column": "movie_id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info",
+    "left_column": "movie_id",
+    "right_table": "cast_info",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info",
+    "left_column": "movie_id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "cast_info",
+    "left_column": "movie_id",
+    "right_table": "movie_keyword",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "cast_info",
+    "left_column": "movie_id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_keyword",
+    "left_column": "movie_id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "name",
+    "left_column": "id",
+    "right_table": "cast_info",
+    "right_column": "person_id"
+  },
+  {
+    "left_table": "role_type",
+    "left_column": "id",
+    "right_table": "cast_info",
+    "right_column": "role_id"
+  },
+  {
+    "left_table": "name",
+    "left_column": "id",
+    "right_table": "aka_name",
+    "right_column": "person_id"
+  },
+  {
+    "left_table": "cast_info",
+    "left_column": "person_id",
+    "right_table": "aka_name",
+    "right_column": "person_id"
+  },
+  {
+    "left_table": "char_name",
+    "left_column": "id",
+    "right_table": "cast_info",
+    "right_column": "person_role_id"
+  },
+  {
+    "left_table": "name",
+    "left_column": "id",
+    "right_table": "person_info",
+    "right_column": "person_id"
+  },
+  {
+    "left_table": "cast_info",
+    "left_column": "person_id",
+    "right_table": "person_info",
+    "right_column": "person_id"
+  },
+  {
+    "left_table": "info_type",
+    "left_column": "id",
+    "right_table": "person_info",
+    "right_column": "info_type_id"
+  },
+  {
+    "left_table": "comp_cast_type",
+    "left_column": "id",
+    "right_table": "complete_cast",
+    "right_column": "subject_id"
+  },
+  {
+    "left_table": "comp_cast_type",
+    "left_column": "id",
+    "right_table": "complete_cast",
+    "right_column": "status_id"
+  },
+  {
+    "left_table": "cast_info",
+    "left_column": "movie_id",
+    "right_table": "movie_info_idx",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info_idx",
+    "left_column": "movie_id",
+    "right_table": "movie_keyword",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "link_type",
+    "left_column": "id",
+    "right_table": "movie_link",
+    "right_column": "link_type_id"
+  },
+  {
+    "left_table": "title",
+    "left_column": "id",
+    "right_table": "movie_link",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "title",
+    "left_column": "id",
+    "right_table": "movie_link",
+    "right_column": "linked_movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "movie_id",
+    "right_table": "movie_info_idx",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "movie_id",
+    "right_table": "movie_companies",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "linked_movie_id",
+    "right_table": "movie_info_idx",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "linked_movie_id",
+    "right_table": "movie_companies",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info_idx",
+    "left_column": "movie_id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "title",
+    "left_column": "id",
+    "right_table": "at",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_keyword",
+    "left_column": "movie_id",
+    "right_table": "at",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_info",
+    "left_column": "movie_id",
+    "right_table": "at",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_companies",
+    "left_column": "movie_id",
+    "right_table": "at",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "person_info",
+    "left_column": "person_id",
+    "right_table": "aka_name",
+    "right_column": "person_id"
+  },
+  {
+    "left_table": "cast_info",
+    "left_column": "movie_id",
+    "right_table": "movie_link",
+    "right_column": "linked_movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "movie_id",
+    "right_table": "movie_keyword",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "movie_id",
+    "right_table": "movie_info",
+    "right_column": "movie_id"
+  },
+  {
+    "left_table": "movie_link",
+    "left_column": "movie_id",
+    "right_table": "complete_cast",
+    "right_column": "movie_id"
+  }
+]
