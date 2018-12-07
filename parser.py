@@ -8,7 +8,7 @@ precedence = [
     ('left', 'OR'),
     ('left', 'AND'),
     ('right', 'NOT'),
-    ('left', 'IS', 'BETWEEN', 'IN', 'EQ', 'NE'),
+    ('left', 'IS', 'LIKE', 'BETWEEN', 'IN', 'EQ', 'NE'),
     ('left', 'GT', 'LE', 'LT', 'GE')
 ]
 
@@ -64,6 +64,7 @@ def p_expression(p):
                   | expression EQ expression
                   | expression NE term
                   | expression IS expression
+                  | expression like expression %prec LIKE
                   | expression between bounds %prec BETWEEN
                   | expression in LP term_list RP
                   """
@@ -91,6 +92,11 @@ def p_term(p):
             | INTEGER
             | STRING"""
     p[0] = ast.TermNode(term=' '.join(p[1:]))
+
+
+def p_like(p):
+    """like : LIKE
+            | NOT LIKE"""
 
 
 def p_between(p):
@@ -129,6 +135,7 @@ def p_as(p):
 
 
 def p_error(p):
+    print(p)
     print('Syntax error at \'{}\''.format(p.value))
 
 
