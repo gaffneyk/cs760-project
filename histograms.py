@@ -40,11 +40,11 @@ def create_histograms(sql_dir):
 
 		all_attributes = sorted(all_attributes)
 
-		print(all_attributes)
+		#print(all_attributes)
 		#print(all_attributes)
 
 		buckets = 10
-		return
+		
 		# for each predicate attribute create the equi depth histogram by invoking the database
 		for attribute in all_attributes:
 			#attribute = 'company_type.kind'
@@ -52,11 +52,11 @@ def create_histograms(sql_dir):
 			relation = attributeTuple[0]
 			attr = attributeTuple[1]
 
-			sqlTemplate =	'SELECT ntile, min(_attr_), max(_attr_)\
+			sqlHistogramTemplate =	'SELECT ntile, min(_attr_), max(_attr_)\
 					FROM(SELECT _attr_, ntile(_buckets_) over (order by _attr_) from _relation_) x\
 					GROUP BY ntile\
 					ORDER BY ntile'
-			sql = sqlTemplate.replace("_attr_", attr).replace("_relation_", relation).replace("_buckets_", str(buckets))
+			sql = sqlHistogramTemplate.replace("_attr_", attr).replace("_relation_", relation).replace("_buckets_", str(buckets))
 
 			# create the histogram
 			print('PostgreSQL database version:')
@@ -71,6 +71,9 @@ def create_histograms(sql_dir):
 				limits = (line[1], line[2])
 				features[attribute].append(limits) 
 				print(line)
+
+			#sqlMCVTemplate = 'select py, cnt
+#	from(select production_year as py, count(*) as cnt from title group by production_year order by cnt desc) x limit 10';
 	
 		#print(cur.fetchal)#(attrname)(bucket number)(limit low:0 high:1)
 
