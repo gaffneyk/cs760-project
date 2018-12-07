@@ -83,7 +83,10 @@ def p_expression(p):
         else:
             right = p[4] if p[3] == '(' else p[3]
             prec = next((i for i, v in enumerate(precedence) if p[2] in v), None)
-            p[0] = ast.OperationNode(operation=p[2], left=p[1], right=right, precedence=prec)
+            if p[2] in ['LIKE', 'NOT LIKE']:
+                p[0] = ast.TermNode('NULL')  # ignoring LIKE predicates for now
+            else:
+                p[0] = ast.OperationNode(operation=p[2], left=p[1], right=right, precedence=prec)
 
 
 def p_term(p):
@@ -97,6 +100,7 @@ def p_term(p):
 def p_like(p):
     """like : LIKE
             | NOT LIKE"""
+    p[0] = ' '.join(p[1:])
 
 
 def p_between(p):
