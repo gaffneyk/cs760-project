@@ -46,6 +46,7 @@ def create_histograms(sql_dir):
 		buckets = 10
 		
 		# for each predicate attribute create the equi depth histogram by invoking the database
+		features = {name: [] for name in all_attributes}
 		for attribute in all_attributes:
 			#attribute = 'company_type.kind'
 			attributeTuple = attribute.split('.')
@@ -64,7 +65,7 @@ def create_histograms(sql_dir):
 
 			attribute = relation+'.'+attr;
 			#features = {}
-			features = {attribute:[]}
+			
 			# display the histogram
 			for line in cur:
 				bucket = line[0]
