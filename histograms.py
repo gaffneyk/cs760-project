@@ -44,9 +44,11 @@ def create_histograms(sql_dir):
 		#print(all_attributes)
 
 		buckets = 10
+		n = 3
 		
 		# for each predicate attribute create the equi depth histogram by invoking the database
-		features = {name: [] for name in all_attributes}
+		featuresHist = {name: [] for name in all_attributes}
+		featuresMCV = {name: [] for name in all_attributes}
 		for attribute in all_attributes:
 			#attribute = 'company_type.kind'
 			attributeTuple = attribute.split('.')
@@ -60,28 +62,40 @@ def create_histograms(sql_dir):
 			sql = sqlHistogramTemplate.replace("_attr_", attr).replace("_relation_", relation).replace("_buckets_", str(buckets))
 
 			# create the histogram
-			print('PostgreSQL database version:')
 			cur.execute(sql)
-
-			attribute = relation+'.'+attr;
-			#features = {}
 			
-			# display the histogram
+			# store the histogram
 			for line in cur:
 				bucket = line[0]
 				limits = (line[1], line[2])
-				features[attribute].append(limits) 
-				print(line)
+				featuresHist[attribute].append(limits) 
+				#print(line)
 
-			#sqlMCVTemplate = 'select py, cnt
-#	from(select production_year as py, count(*) as cnt from title group by production_year order by cnt desc) x limit 10';
+			sqlMCVTemplate =	'SELECT value\
+						FROM(SELECT _attr_ AS value, count(*) AS cnt \
+						FROM _relation_ GROUP BY _attr_ ORDER BY cnt DESC) x LIMIT _n_';
+
+			sql = sqlMCVTemplate.replace("_attr_", attr).replace("_relation_", relation).replace("_n_", str(n))
+			
+			# create the mcv
+			cur.execute(sql)
+			
+			# store the mcv
+			for value in cur:
+				featuresMCV[attribute].append(value) 
+				print(value)
 	
 		#print(cur.fetchal)#(attrname)(bucket number)(limit low:0 high:1)
 
 		# close the communication with the PostgreSQL
 		cur.close()
 		
-		json.dump(features,open('histograms.json', 'w'))
+		f = open('histograms.json', 'w')
+		f.write(json.dumps(featuresHist, indent=4, sort_keys=True))
+		
+		f = open('MCVs.json', 'w')
+		f.write(json.dumps(featuresMCV, indent=4, sort_keys=True))
+
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
 	finally:
