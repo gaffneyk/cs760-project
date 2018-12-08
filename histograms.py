@@ -83,7 +83,7 @@ def create_histograms(sql_dir):
 			# store the mcv
 			for value in cur:
 				featuresMCV[attribute].append(value) 
-				print(value)
+		#		print(value)
 	
 		#print(cur.fetchal)#(attrname)(bucket number)(limit low:0 high:1)
 
