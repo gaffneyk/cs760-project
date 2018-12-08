@@ -90,10 +90,10 @@ def create_histograms(sql_dir):
 		# close the communication with the PostgreSQL
 		cur.close()
 		
-		f = open('histograms.json', 'w')
+		f = open('histograms.json', 'w', encoding='utf-8')
 		f.write(json.dumps(featuresHist, indent=4, sort_keys=True))
 		
-		f = open('MCVs.json', 'w')
+		f = open('MCVs.json', 'w', encoding='utf-8')
 		f.write(json.dumps(featuresMCV, indent=4, sort_keys=True))
 
 	except (Exception, psycopg2.DatabaseError) as error:
