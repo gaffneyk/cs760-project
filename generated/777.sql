@@ -1,0 +1,1 @@
+SELECT MIN(name.gender), MIN(name.id), MIN(aka_name.person_id) FROM aka_name, name WHERE name.gender IS NOT NULL AND name.id = aka_name.person_id;

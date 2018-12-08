@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link), MIN(kind_type.kind) FROM link_type, kind_type WHERE link_type.link = 'edited from' AND kind_type.kind IN ('tv mini series', 'video movie', 'video game', 'movie', 'tv series', 'tv movie', 'episode');

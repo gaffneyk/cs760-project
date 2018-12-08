@@ -1,0 +1,1 @@
+SELECT MIN(name.name_pcode_cf), MIN(person_info.person_id), MIN(name.id) FROM person_info, name WHERE name.name_pcode_cf IN ('B6525', 'Y6415', 'D5254', 'I326', 'R1632', 'M6352', 'P3625', 'O6254', 'T5125', 'A5315', 'A5362', 'D3453', 'Q1323', 'H6514', 'B341', 'G5242', 'P6252', 'S5351', 'J5252', 'S3152') AND name.id = person_info.person_id;
