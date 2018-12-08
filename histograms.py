@@ -14,7 +14,6 @@ def create_histograms(sql_dir):
 		# connect to the PostgreSQL server
 		print('Connecting to the PostgreSQL database...')
 		conn = psycopg2.connect(database = "imdbload")
-		#conn = psycopg2.connect(host = "128.105.144.38", database = "imdbload", user = "eryilmaz", password = "Zfurer1994")
 
 		# create a cursor
 		cur = conn.cursor()
@@ -32,16 +31,13 @@ def create_histograms(sql_dir):
 					for attribute in join.split('='):
 						all_attributes.add(attribute)
 	
-				selection_predicates= [p.to_sql() for p in ast.get_selections(node)]
+				selection_predicates= [p.left.to_sql() for p in ast.get_selections(node)]
 				for predicate in selection_predicates:
-					all_attributes.add(predicate.split(' ')[0]);
+					all_attributes.add(predicate);
 
 		print(len(all_attributes))
 
 		all_attributes = sorted(all_attributes)
-
-		#print(all_attributes)
-		#print(all_attributes)
 
 		buckets = 10
 		n = 3
@@ -50,7 +46,7 @@ def create_histograms(sql_dir):
 		featuresHist = {name: [] for name in all_attributes}
 		featuresMCV = {name: [] for name in all_attributes}
 		for attribute in all_attributes:
-			#attribute = 'company_type.kind'
+	
 			attributeTuple = attribute.split('.')
 			relation = attributeTuple[0]
 			attr = attributeTuple[1]
@@ -67,7 +63,7 @@ def create_histograms(sql_dir):
 			# store the histogram
 			for line in cur:
 				bucket = line[0]
-				limits = (line[1], line[2])
+				limits = (str(line[1]), str(line[2]))
 				featuresHist[attribute].append(limits) 
 				#print(line)
 
@@ -83,7 +79,7 @@ def create_histograms(sql_dir):
 			# store the mcv
 			for value in cur:
 				featuresMCV[attribute].append(value) 
-		#		print(value)
+
 	
 		#print(cur.fetchal)#(attrname)(bucket number)(limit low:0 high:1)
 
