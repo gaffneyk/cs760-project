@@ -1,0 +1,1 @@
+SELECT MIN(comp_cast_type.id), MIN(comp_cast_type.kind), MIN(complete_cast.status_id) FROM complete_cast, comp_cast_type WHERE comp_cast_type.kind != 'crew' AND comp_cast_type.id = complete_cast.status_id;

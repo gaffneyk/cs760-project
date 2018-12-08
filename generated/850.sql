@@ -1,0 +1,1 @@
+SELECT MIN(title.id), MIN(title.episode_nr), MIN(cast_info.movie_id), MIN(keyword.keyword) FROM cast_info, title, keyword WHERE title.episode_nr = 23653 AND keyword.keyword = 'barrier-cliff' AND title.id = cast_info.movie_id;

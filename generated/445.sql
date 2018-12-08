@@ -1,0 +1,1 @@
+SELECT MIN(name.name_pcode_cf), MIN(cast_info.person_id), MIN(role_type.role), MIN(name.id) FROM cast_info, name, role_type WHERE role_type.role IS NULL AND name.name_pcode_cf = 'S3152' AND name.id = cast_info.person_id;

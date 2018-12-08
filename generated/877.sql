@@ -1,0 +1,1 @@
+SELECT MIN(person_info.person_id), MIN(link_type.link), MIN(name.gender), MIN(name.id) FROM link_type, person_info, name WHERE name.gender = 'm' AND link_type.link != 'edited into' AND name.id = person_info.person_id;

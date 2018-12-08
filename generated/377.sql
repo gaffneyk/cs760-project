@@ -1,0 +1,1 @@
+SELECT MIN(title.id), MIN(movie_info.movie_id), MIN(title.production_year) FROM title, movie_info WHERE title.production_year < 1900 AND movie_info.movie_id = title.id;
