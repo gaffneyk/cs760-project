@@ -1,1 +1,0 @@
-SELECT MIN(person_info.person_id), MIN(cast_info.person_id), MIN(name.name), MIN(name.id) FROM person_info, cast_info, name WHERE name.name = 'Smith, Chris' AND name.id = person_info.person_id AND name.id = cast_info.person_id;

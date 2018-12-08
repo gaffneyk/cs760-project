@@ -1,1 +1,0 @@
-SELECT MIN(aka_title.movie_id), MIN(complete_cast.movie_id), MIN(title.id), MIN(title.title), MIN(movie_link.movie_id), MIN(role_type.role) FROM movie_link, role_type, aka_title, complete_cast, title WHERE role_type.role IS NULL AND title.title IS NOT NULL AND title.id = movie_link.movie_id AND title.id = complete_cast.movie_id AND title.id = aka_title.movie_id;

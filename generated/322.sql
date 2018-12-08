@@ -1,1 +1,0 @@
-SELECT MIN(company_name.country_code), MIN(movie_info_idx.info) FROM company_name, movie_info_idx WHERE company_name.country_code != '[us]' AND movie_info_idx.info IN ('..1.13131.', '1..0.11301', '5', '0011131..1', '10', '3...1.3.1.', '7.0', '8', '01..0003.2', '6.8', '6.7', '6.6', '7', '....2132.2', '......612.', '110.0100.1', '9', '6', '0....3.3.1', '2907');

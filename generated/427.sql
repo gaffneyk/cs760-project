@@ -1,1 +1,0 @@
-SELECT MIN(comp_cast_type.kind), MIN(cast_info.note), MIN(title.title), MIN(aka_name.name), MIN(char_name.name) FROM aka_name, cast_info, char_name, comp_cast_type, title WHERE aka_name.name IS NULL AND comp_cast_type.kind IS NULL AND cast_info.note IS NOT NULL AND title.title IS NOT NULL AND char_name.name = 'Docville Bank Teller';

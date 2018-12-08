@@ -1,1 +1,0 @@
-SELECT MIN(complete_cast.subject_id), MIN(comp_cast_type.id), MIN(comp_cast_type.kind) FROM complete_cast, comp_cast_type WHERE comp_cast_type.kind IS NOT NULL AND comp_cast_type.id = complete_cast.subject_id;

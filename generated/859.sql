@@ -1,1 +1,0 @@
-SELECT MIN(movie_companies.note), MIN(movie_companies.movie_id), MIN(movie_link.linked_movie_id), MIN(movie_info.movie_id) FROM movie_link, movie_companies, movie_info WHERE movie_companies.note = '(1975) (Canada) (theatrical) (re-release)' AND movie_info.movie_id = movie_companies.movie_id AND movie_link.linked_movie_id = movie_companies.movie_id;

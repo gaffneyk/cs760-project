@@ -1,1 +1,0 @@
-SELECT MIN(title.episode_nr), MIN(movie_info_idx.info), MIN(movie_link.linked_movie_id), MIN(movie_info_idx.movie_id), MIN(movie_companies.movie_id) FROM movie_link, title, movie_companies, movie_info_idx WHERE movie_info_idx.info IS NULL AND title.episode_nr IS NULL AND movie_info_idx.movie_id = movie_companies.movie_id AND movie_link.linked_movie_id = movie_info_idx.movie_id;

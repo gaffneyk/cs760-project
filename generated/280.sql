@@ -1,1 +1,0 @@
-SELECT MIN(company_name.country_code), MIN(company_name.name) FROM company_name WHERE company_name.country_code != '[it]' AND company_name.name = 'Westofi-Tonfilm-Productions';

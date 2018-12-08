@@ -1,1 +1,0 @@
-SELECT MIN(title.kind_id), MIN(kind_type.kind), MIN(kind_type.id) FROM kind_type, title WHERE kind_type.kind != 'tv movie' AND kind_type.id = title.kind_id;

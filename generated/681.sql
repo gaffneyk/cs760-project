@@ -1,1 +1,0 @@
-SELECT MIN(cast_info.person_id), MIN(aka_name.name), MIN(aka_name.person_id) FROM aka_name, cast_info WHERE aka_name.name = 'Mike' AND cast_info.person_id = aka_name.person_id;

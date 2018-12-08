@@ -1,1 +1,0 @@
-SELECT MIN(person_info.person_id), MIN(person_info.note), MIN(name.id) FROM person_info, name WHERE person_info.note != 'Simone North' AND name.id = person_info.person_id;

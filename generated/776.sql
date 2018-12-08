@@ -1,1 +1,0 @@
-SELECT MIN(title.production_year) FROM title WHERE title.production_year NOT BETWEEN 1991 AND 1998;

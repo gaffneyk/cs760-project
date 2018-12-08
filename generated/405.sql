@@ -1,1 +1,0 @@
-SELECT MIN(movie_link.movie_id), MIN(movie_info.note), MIN(movie_info.movie_id), MIN(title.id) FROM movie_link, title, movie_info WHERE movie_info.note = '(limited)' AND movie_info.movie_id = title.id AND movie_link.movie_id = movie_info.movie_id;

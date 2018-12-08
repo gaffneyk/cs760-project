@@ -1,1 +1,0 @@
-SELECT MIN(keyword.keyword), MIN(kind_type.kind), MIN(title.episode_nr), MIN(char_name.name) FROM kind_type, title, char_name, keyword WHERE title.episode_nr = 35986 AND kind_type.kind IS NULL AND keyword.keyword IS NOT NULL AND char_name.name = 'Maze';

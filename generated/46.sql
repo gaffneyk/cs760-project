@@ -1,1 +1,0 @@
-SELECT MIN(name.gender), MIN(kind_type.kind), MIN(name.id), MIN(aka_name.person_id) FROM aka_name, kind_type, name WHERE kind_type.kind IS NOT NULL AND name.gender IS NULL AND name.id = aka_name.person_id;

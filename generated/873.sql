@@ -1,1 +1,0 @@
-SELECT MIN(company_type.kind), MIN(company_name.name) FROM company_type, company_name WHERE company_type.kind IS NULL AND company_name.name IS NULL;

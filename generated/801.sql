@@ -1,1 +1,0 @@
-SELECT MIN(person_info.info_type_id), MIN(person_info.note), MIN(info_type.id), MIN(comp_cast_type.kind) FROM info_type, person_info, comp_cast_type WHERE comp_cast_type.kind IS NOT NULL AND person_info.note = 'Jon C. Hopwood' AND info_type.id = person_info.info_type_id;

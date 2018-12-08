@@ -1,1 +1,0 @@
-SELECT MIN(info_type.info), MIN(char_name.name) FROM info_type, char_name WHERE info_type.info IS NOT NULL AND char_name.name IS NULL;

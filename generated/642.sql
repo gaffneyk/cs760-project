@@ -1,1 +1,0 @@
-SELECT MIN(name.gender), MIN(title.production_year), MIN(link_type.link) FROM link_type, name, title WHERE link_type.link != 'remake of' AND title.production_year <= 2013 AND name.gender IN ('m', 'f', '');

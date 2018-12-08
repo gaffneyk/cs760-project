@@ -1,1 +1,0 @@
-SELECT MIN(name.gender), MIN(name.name), MIN(info_type.info), MIN(movie_info_idx.info) FROM info_type, name, movie_info_idx WHERE movie_info_idx.info != '110.0100.1' AND info_type.info != 'LD year' AND name.name IS NOT NULL AND name.gender = 'm';

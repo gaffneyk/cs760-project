@@ -1,1 +1,0 @@
-SELECT MIN(name.name_pcode_cf) FROM name WHERE name.name_pcode_cf IS NOT NULL;

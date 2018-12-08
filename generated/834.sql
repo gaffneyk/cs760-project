@@ -1,1 +1,0 @@
-SELECT MIN(cast_info.movie_id), MIN(movie_info.movie_id), MIN(movie_info_idx.info), MIN(movie_info_idx.movie_id), MIN(kind_type.kind) FROM movie_info, kind_type, cast_info, movie_info_idx WHERE kind_type.kind = 'tv series' AND movie_info_idx.info = '0....3.3.1' AND movie_info.movie_id = movie_info_idx.movie_id AND cast_info.movie_id = movie_info_idx.movie_id;
