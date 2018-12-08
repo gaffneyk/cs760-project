@@ -1,0 +1,1 @@
+SELECT MIN(kind_type.kind) FROM kind_type WHERE kind_type.kind != 'tv mini series';

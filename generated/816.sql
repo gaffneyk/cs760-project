@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link) FROM link_type WHERE link_type.link IN ('featured in', 'followed by', 'similar to', 'referenced in', 'remake of', 'features', 'spoofs', 'alternate language version of', 'spoofed in', 'spin off', 'edited into', 'edited from', 'version of', 'unknown link', 'references', 'follows', 'spin off from', 'remade as');

@@ -1,0 +1,1 @@
+SELECT MIN(title.episode_nr), MIN(title.production_year) FROM title WHERE title.episode_nr IN (37988, 75228, 91572, 85066, 71159, 74071, 68184, 4161, 6981) AND title.production_year IN (1891, 1899, 1953);

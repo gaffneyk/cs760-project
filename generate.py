@@ -2,6 +2,7 @@ import argparse
 import random
 import ast
 import json
+import os
 
 nominal_operations = ['=', '!=', 'IS', 'IN']
 numeric_operations = ['<', '>', '<=', '>=', '=', '!=', 'IS', 'BETWEEN', 'NOT BETWEEN', 'IN']
@@ -115,8 +116,10 @@ def generate_queries():
             queries.add(query.to_sql())
 
     # write all the generated queries to file
-    with open('generated.sql', 'w') as f:
-        f.write('\n'.join(queries))
+    os.makedirs('generated', exist_ok=True)
+    for i, q in enumerate(queries):
+        with open('generated/{}.sql'.format(i + 1), 'w') as f:
+            f.write(q)
 
 
 if __name__ == '__main__':

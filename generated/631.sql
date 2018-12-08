@@ -1,0 +1,1 @@
+SELECT MIN(name.name_pcode_cf), MIN(movie_info.info) FROM name, movie_info WHERE name.name_pcode_cf IS NOT NULL AND movie_info.info != 'Black and White';

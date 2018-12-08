@@ -1,0 +1,1 @@
+SELECT MIN(name.name_pcode_cf), MIN(movie_info.note), MIN(info_type.info) FROM info_type, name, movie_info WHERE movie_info.note != 'Anonymous' AND info_type.info IS NULL AND name.name_pcode_cf IS NULL;

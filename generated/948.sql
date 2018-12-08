@@ -1,0 +1,1 @@
+SELECT MIN(person_info.person_id), MIN(name.gender), MIN(name.id) FROM person_info, name WHERE name.gender IN ('', 'm', 'f') AND name.id = person_info.person_id;

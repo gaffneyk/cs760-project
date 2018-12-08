@@ -1,0 +1,1 @@
+SELECT MIN(movie_companies.note), MIN(kind_type.kind) FROM kind_type, movie_companies WHERE kind_type.kind IN ('tv series', 'episode', 'tv movie', 'tv mini series', 'video game', 'video movie', 'movie') AND movie_companies.note IS NOT NULL;

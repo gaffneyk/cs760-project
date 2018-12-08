@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link), MIN(cast_info.note), MIN(cast_info.movie_id), MIN(complete_cast.movie_id) FROM link_type, cast_info, complete_cast WHERE cast_info.note != '(producer)' AND link_type.link != 'spin off from' AND cast_info.movie_id = complete_cast.movie_id;
