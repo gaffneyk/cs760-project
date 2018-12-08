@@ -45,7 +45,7 @@ t_LT = '<'
 t_NE = '!='
 t_RP = '\)'
 t_SEMICOLON = ';'
-t_STRING = '\'.*?\''
+t_STRING = '\'(?:[^\']|\'\')*\''
 
 
 def t_NAME(t):
