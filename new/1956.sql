@@ -1,1 +1,0 @@
-SELECT MIN(title.id), MIN(movie_keyword.movie_id), MIN(title.production_year), MIN(movie_link.linked_movie_id), MIN(company_type.kind) FROM title, movie_keyword, company_type, movie_link WHERE title.production_year != 2017 AND company_type.kind IS NOT NULL AND title.id = movie_link.linked_movie_id AND title.id = movie_keyword.movie_id;

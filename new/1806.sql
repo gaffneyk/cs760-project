@@ -1,1 +1,0 @@
-SELECT MIN(keyword.keyword), MIN(keyword.id), MIN(movie_keyword.keyword_id) FROM keyword, movie_keyword WHERE keyword.keyword != 'reference-to-hugh-o''neill-earl-of-tyrone' AND keyword.id = movie_keyword.keyword_id;

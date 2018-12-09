@@ -1,1 +1,0 @@
-SELECT MIN(cast_info.person_id), MIN(person_info.person_id), MIN(name.gender), MIN(aka_name.person_id), MIN(name.id) FROM name, person_info, aka_name, cast_info WHERE name.gender = 'm' AND name.id = person_info.person_id AND name.id = aka_name.person_id AND name.id = cast_info.person_id;

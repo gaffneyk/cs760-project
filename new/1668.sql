@@ -1,1 +1,0 @@
-SELECT MIN(keyword.keyword), MIN(comp_cast_type.kind) FROM keyword, comp_cast_type WHERE comp_cast_type.kind IS NULL AND keyword.keyword IS NOT NULL;

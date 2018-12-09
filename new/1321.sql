@@ -1,1 +1,0 @@
-SELECT MIN(aka_name.name) FROM aka_name WHERE aka_name.name != 'Bill';

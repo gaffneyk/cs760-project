@@ -1,1 +1,0 @@
-SELECT MIN(role_type.role), MIN(link_type.link), MIN(company_name.country_code), MIN(kind_type.kind) FROM role_type, link_type, company_name, kind_type WHERE company_name.country_code != '[gl]' AND link_type.link IS NULL AND kind_type.kind IN ('video game', 'tv series', 'movie', 'tv movie', 'episode', 'video movie', 'tv mini series') AND role_type.role IS NOT NULL;

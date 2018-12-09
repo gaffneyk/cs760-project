@@ -1,1 +1,0 @@
-SELECT MIN(title.kind_id), MIN(movie_link.link_type_id), MIN(link_type.link), MIN(link_type.id), MIN(kind_type.id), MIN(kind_type.kind) FROM link_type, movie_link, title, kind_type WHERE kind_type.kind = 'movie' AND link_type.link IS NOT NULL AND kind_type.id = title.kind_id AND link_type.id = movie_link.link_type_id;

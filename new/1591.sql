@@ -1,1 +1,0 @@
-SELECT MIN(role_type.role), MIN(cast_info.role_id), MIN(role_type.id) FROM role_type, cast_info WHERE role_type.role IN ('composer', 'cinematographer', 'producer', 'actor', 'director', 'actress', 'editor', 'miscellaneous crew', 'guest', 'production designer', 'writer', 'costume designer') AND role_type.id = cast_info.role_id;

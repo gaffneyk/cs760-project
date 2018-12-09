@@ -1,1 +1,0 @@
-SELECT MIN(company_name.country_code), MIN(name.gender) FROM name, company_name WHERE name.gender = 'f' AND company_name.country_code IS NULL;

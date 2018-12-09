@@ -1,1 +1,0 @@
-SELECT MIN(movie_companies.movie_id), MIN(movie_keyword.movie_id), MIN(kind_type.kind), MIN(movie_info.note), MIN(movie_info.movie_id) FROM movie_info, movie_companies, movie_keyword, kind_type WHERE kind_type.kind != 'tv mini series' AND movie_info.note = 'Anonymous' AND movie_info.movie_id = movie_companies.movie_id AND movie_keyword.movie_id = movie_info.movie_id;

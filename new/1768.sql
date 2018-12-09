@@ -1,1 +1,0 @@
-SELECT MIN(link_type.link), MIN(comp_cast_type.kind) FROM link_type, comp_cast_type WHERE link_type.link = 'alternate language version of' AND comp_cast_type.kind != 'cast';

@@ -1,1 +1,0 @@
-SELECT MIN(keyword.keyword), MIN(person_info.note) FROM keyword, person_info WHERE person_info.note IS NULL AND keyword.keyword IS NULL;

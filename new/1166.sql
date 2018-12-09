@@ -1,1 +1,0 @@
-SELECT MIN(info_type.id), MIN(title.episode_nr), MIN(movie_companies.movie_id), MIN(title.id), MIN(info_type.info), MIN(movie_info_idx.info_type_id) FROM movie_companies, info_type, title, movie_info_idx WHERE title.episode_nr <= 35683 AND info_type.info = 'certificates' AND info_type.id = movie_info_idx.info_type_id AND movie_companies.movie_id = title.id;

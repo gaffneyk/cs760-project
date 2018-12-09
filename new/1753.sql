@@ -1,1 +1,0 @@
-SELECT MIN(person_info.note) FROM person_info WHERE person_info.note = 'New Cinema Productions';
