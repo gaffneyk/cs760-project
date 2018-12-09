@@ -4,71 +4,114 @@ import json
 
 import ast
 from parser import parser
+from collections import OrderedDict
 
 
-def featurize_selections(sql, feature_names):
+#creates features on selection attributes
+def featurize_selections(sql):
 
-	hist_file = open('histograms.json')
-	mcv_file = open('MCVs.json')
+	statistics_file = open('statistics.json')
+	statistics = json.load(statistics_file)
 
-	featureHist = json.load(hist_file)
-	featureMCV = json.load(mcv_file)
+	node = parser.parse(sql)
 	
-	features = {name: [] for name in feature_names}
-	
-	node = parser.parse(sql) 
+	featuresDict = {name: [False]*(len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values']))\
+		 for name in statistics} 
+
+	featuresDict = OrderedDict(sorted(featuresDict.items()))
 
 	selection_predicates = ast.get_selections(node)
 	for predicate in selection_predicates:
-		features[predicate.left.to_sql()+' hist'] = hist_featurize(predicate, featureHist)
-		features[predicate.left.to_sql()+' mcv'] = mcv_featurize(predicate, featureMCV)
+		featuresDict[predicate.left.to_sql()] = hist_featurize(predicate, statistics)+mcv_featurize(predicate, statistics)
 
-	print(json.dumps(features, indent=4, sort_keys=True))
+	#print(json.dumps(featuresDict, indent=4, sort_keys=True))
+
+	features = []
+	for name in featuresDict:
+		features = features+featuresDict[name] 
+	
+	#print(features)
 
 #According to operation featurize the selection predicate - Histogram part
-def hist_featurize(node, featureHist):
+def hist_featurize(node, statistics):
 	features = []
-	for bucket in range(len(featureHist[node.left.to_sql()])):
-		if(node.operation == '<='):
-			features.append(featureHist[node.left.to_sql()][bucket][0] <= node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '<'):
-			features.append(featureHist[node.left.to_sql()][bucket][0] < node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '>='):
-			features.append(featureHist[node.left.to_sql()][bucket][1] >= node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '>'):
-			features.append(featureHist[node.left.to_sql()][bucket][1] > node.right.to_sql().replace('\'', ''))
-			print(featureHist[node.left.to_sql()][bucket][1])
-			print(node.right.to_sql())
-		elif(node.operation == '=' or node.operation == 'IS' ):
-			features.append(featureHist[node.left.to_sql()][bucket][0] <= node.right.to_sql().replace('\'', '') and\
-					featureHist[node.left.to_sql()][bucket][1] >= node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '!='):
-			features.append(featureHist[node.left.to_sql()][bucket][0] > node.right.to_sql().replace('\'', '') or\
-					featureHist[node.left.to_sql()][bucket][1] < node.right.to_sql().replace('\'', ''))
+	
+	if(statistics[node.left.to_sql()]['histogram_bounds'] == 'None'):
+		features = [False]
+		return features
 
+	for bucket in range(len(statistics[node.left.to_sql()]['histogram_bounds'])-1):
+		
+		low = statistics[node.left.to_sql()]['histogram_bounds'][bucket]
+		high = statistics[node.left.to_sql()]['histogram_bounds'][bucket+1]
+		
+		if(node.operation == '<='):
+			features.append(low <= node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '<'):
+			features.append(low < node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '>='):
+			features.append(high >= node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '>'):
+			features.append(high > node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '=' or node.operation == 'IS' ):
+			features.append(low <= node.right.to_sql().replace('\'', '') and\
+					high >= node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '!='):
+			features.append(low > node.right.to_sql().replace('\'', '') or\
+					high < node.right.to_sql().replace('\'', ''))
+		elif(node.operation == 'BETWEEN'):
+			features.append(low <= node.right.right.to_sql().replace('\'', '') and\
+					high >= node.right.left.to_sql().replace('\'', ''))
+		elif(node.operation == 'NOT BETWEEN'):
+			features.append(low > node.right.right.to_sql().replace('\'', '') or\
+					high < node.right.left.to_sql().replace('\'', ''))
+		elif(node.operation == 'IN'):
+			tempFlag = False;
+			for i in range(len(node.right.items)):
+				tempFlag = tempFlag or (low <= node.right.items[i].to_sql() and\
+							high >= node.right.items[i].to_sql())
+			features.append(tempFlag)			
+		
 	return features
 
 #According to operation featurize the selection predicate - Most Common Value part
-def mcv_featurize(node, featureMCV):
+def mcv_featurize(node, statistics):
 	features = []
-	for mcv in range(len(featureMCV[node.left.to_sql()])):
-		if(node.operation == '<='):
-			features.append(featureMCV[node.left.to_sql()][mcv] <= node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '<'):
-			features.append(featureMCV[node.left.to_sql()][mcv] < node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '>='):
-			features.append(featureMCV[node.left.to_sql()][mcv] >= node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '>'):
-			features.append(featureMCV[node.left.to_sql()][mcv] != 'None' and\ # add this to every condition
-			featureMCV[node.left.to_sql()][mcv] > node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '=' or node.operation == 'IS' ):
-			features.append(featureMCV[node.left.to_sql()][mcv] == node.right.to_sql().replace('\'', ''))
-		elif(node.operation == '!='):
-			features.append(featureMCV[node.left.to_sql()][mcv] != node.right.to_sql().replace('\'', ''))
+	for mcv in range(len(statistics[node.left.to_sql()]['most_common_values'])):
+		
+		cv = statistics[node.left.to_sql()]['most_common_values'][mcv]
 
+		if(cv == 'None'):
+			features.append(False)
+		elif(node.operation == '<='):
+			features.append(cv <= node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '<'):
+			features.append(cv < node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '>='):
+			features.append(cv >= node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '>'):
+			features.append(cv > node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '=' or node.operation == 'IS' ):
+			features.append(cv == node.right.to_sql().replace('\'', ''))
+		elif(node.operation == '!='):
+			features.append(cv != node.right.to_sql().replace('\'', ''))
+		elif(node.operation == 'BETWEEN'):
+			features.append(cv <= node.right.right.to_sql().replace('\'', '') and\
+					cv >= node.right.left.to_sql().replace('\'', ''))
+		elif(node.operation == 'NOT BETWEEN'):
+			print(node.right.right.to_sql())
+			features.append(cv > node.right.right.to_sql().replace('\'', '') or\
+					cv < node.right.left.to_sql().replace('\'', ''))
+		elif(node.operation == 'IN'):
+			tempFlag = False;
+			for i in range(len(node.right.items)):
+				tempFlag = tempFlag or (cv == node.right.items[i].to_sql())
+			features.append(tempFlag)
+			
 	return features
+
 			
 f = open('join-order-benchmark/queries/6a.sql', 'r')
-featurize_selections(f.read(), ['keyword.keyword hist','title.production_year hist', 'keyword.keyword mcv','title.production_year mcv'])
+featurize_selections(f.read())
 
 
