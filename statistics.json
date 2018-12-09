@@ -1,0 +1,416 @@
+{
+    "aka_name.name": {
+        "histogram_bounds": [
+            "\"13",
+            " Grupp\"",
+            "\"Boutazak",
+            " Iván\"",
+            "\"Dan DeLuca\"",
+            "Foxy",
+            "Hørlykke",
+            "\"Kusubandio",
+            " Wishnutama\"",
+            "\"Mendez",
+            " Luis Jaime\"",
+            "\"Peitschew",
+            " Stephan\"",
+            "\"Savun",
+            " Loeng-Wong\"",
+            "\"Thongaram",
+            " Kanokporn\"",
+            " David Murry Andrews"
+        ],
+        "most_common_values": [
+            "Jimmy",
+            "Billy",
+            "Jen"
+        ]
+    },
+    "cast_info.note": {
+        "histogram_bounds": [
+            "(1954)",
+            "\"(as David Fernandez)\"",
+            "\"(assistant location manager)\"",
+            "\"(co-executive producer)\"",
+            "(dialogue)",
+            "(lead)",
+            "\"(post producer)\"",
+            "(Referee)",
+            "\"(senior producer)\"",
+            "\"(supervising producer)\"",
+            "(young)"
+        ],
+        "most_common_values": [
+            "(producer)",
+            "\"(executive producer)\"",
+            "(writer)"
+        ]
+    },
+    "char_name.name": {
+        "histogram_bounds": [
+            "0",
+            "Brier",
+            "\"Detective Kilsip\"",
+            "\"Frau Hahn\"",
+            "\"Himself - Senior Lecturer in Consumer Behaviour and Marketing",
+            " Deacon University\"",
+            "\"Kid at Playground #5\"",
+            "\"Marie Grasmüller\"",
+            "\"Observation Guard\"",
+            "\"Rod Cathcart\"",
+            "Teesa",
+            "\"Þjónustufulltrúi í banka\""
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "comp_cast_type.kind": {
+        "histogram_bounds": [
+            "cast",
+            "complete",
+            "complete+verified",
+            "crew"
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "company_name.country_code": {
+        "histogram_bounds": [
+            "[ae]",
+            "[be]",
+            "[ch]",
+            "[do]",
+            "[hk]",
+            "[kr]",
+            "[mx]",
+            "[nl]",
+            "[pl]",
+            "[sg]",
+            "[zw]"
+        ],
+        "most_common_values": [
+            "[us]",
+            "[gb]",
+            "[fr]"
+        ]
+    },
+    "company_name.name": {
+        "histogram_bounds": [
+            "\"037 Productions\"",
+            "\"Best Film CO\"",
+            "\"Connossieur Video\"",
+            "\"Ex Nihilo\"",
+            "\"Hectic Films\"",
+            "\"L.A.D.S Entertainment\"",
+            "\"Moonspun Films\"",
+            "Point",
+            "\"Seven Seas Productions\"",
+            "\"Time-Life Pictures\"",
+            "ZZ-Film"
+        ],
+        "most_common_values": [
+            "\"United International Pictures (UIP)\"",
+            "Nickelodeon",
+            "\"Sony Pictures Releasing\""
+        ]
+    },
+    "company_type.kind": {
+        "histogram_bounds": [
+            "distributors",
+            "\"miscellaneous companies\"",
+            "\"production companies\"",
+            "\"special effects companies\""
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "info_type.info": {
+        "histogram_bounds": [
+            "adaption",
+            "\"bottom 10 rank\"",
+            "genres",
+            "\"LD audio noise\"",
+            "\"LD disc format\"",
+            "\"LD number of sides\"",
+            "\"LD sharpness\"",
+            "locations",
+            "\"portrayed in\"",
+            "\"sound mix\"",
+            "\"where now\""
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "keyword.keyword": {
+        "histogram_bounds": [
+            "10000th-century-b.c.",
+            "box-of-matches",
+            "criminal-attack",
+            "feeling-cold",
+            "hollow-earth",
+            "made-in-texas",
+            "panel-show",
+            "reference-to-henry-vi",
+            "shakespeare's-henry-iv-part-one",
+            "throwing-a-bra",
+            "zwarte-pieten"
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "kind_type.kind": {
+        "histogram_bounds": [
+            "episode",
+            "movie",
+            "\"tv mini series\"",
+            "\"tv movie\"",
+            "\"tv series\"",
+            "\"video game\"",
+            "\"video movie\""
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "link_type.link": {
+        "histogram_bounds": [
+            "\"alternate language version of\"",
+            "\"edited from\"",
+            "\"featured in\"",
+            "\"followed by\"",
+            "follows",
+            "references",
+            "\"remake of\"",
+            "\"similar to\"",
+            "\"spin off from\"",
+            "spoofs",
+            "\"version of\""
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "movie_companies.note": {
+        "histogram_bounds": [
+            "(????-????)",
+            "\"(1948) (France) (theatrical)\"",
+            "\"(1972) (USA) (TV)\"",
+            "\"(1991) (USA) (TV)\"",
+            "\"(2001) (USA) (TV)\"",
+            "\"(2005) (UK) (theatrical)\"",
+            "\"(2008) (Argentina) (all media)\"",
+            "\"(2010) (Canada) (TV)\"",
+            "\"(2012) (Austria) (TV)\"",
+            "\"(as Vanity Comedies)\"",
+            "\"(YLE TV2 Viihde)\""
+        ],
+        "most_common_values": [
+            "\"(in association with)\"",
+            "(co-production)",
+            "\"(2007) (USA) (DVD)\""
+        ]
+    },
+    "movie_info.info": {
+        "histogram_bounds": [
+            "-",
+            "Action",
+            "\"Canada:15 March 2010\"",
+            "\"Don't talk to anyone. Don't touch anyone.\"",
+            "\"GFA reaches their breaking point when thunderstorms put a damper on their back-to-back shows on a lake in Ste-Agathe. As the pyros battle wind and water",
+            " mishaps quickly multiply and suddenly everyone's safety is at risk. Across the Atlantic at an international competition on the coast of France",
+            " Philippe and Benoit quickly realize no one plays by the rules and that their supplier has sent them the wrong products. Outgunned by their competitors",
+            " the underdogs find that fate has a way of defying expectations.\"",
+            "\"LAB:DuArt Film Laboratories Inc.",
+            " New York",
+            " USA\"",
+            "PCS:Spherical",
+            "\"Söderqvist",
+            " Jan. \\\"Kärlekshistoria kvävs av klichéer (2/6)\\\". In: \\\"Svenska Dagbladet\\\" (Sweden)",
+            " 24 June 2009",
+            " (NP)\"",
+            "\"Today is Chad's Birthday and his boyfriend",
+            " who is out-of-town",
+            " has sent him a birthday gift in the mail. Soon after Chad receives the gift",
+            " Billy arrives to deliver a package of his own. Chad soon discovers that this birthday may not have the happy ending that he was expecting and that his cheating ways may finally come back to bite him!\"",
+            "\"USA:20 February 1989\"",
+            "\"Zürich",
+            " Kanton Zürich",
+            " Switzerland\""
+        ],
+        "most_common_values": [
+            "Color",
+            "English",
+            "USA"
+        ]
+    },
+    "movie_info.note": {
+        "histogram_bounds": [
+            "\"(105 episodes)\"",
+            "alfiehitchie",
+            "(Catalonia)",
+            "(Eastmancolor)",
+            "gavin@sunny_deol2009@yahoo.com",
+            "\"Jim Beaver <jumblejim@prodigy.net>\"",
+            "\"MicroPisti <micropisti@freemail.hu>\"",
+            "\"(Ottawa European Union Film Festival)\"",
+            "\"(San Francisco Independent Film Festival)\"",
+            "(Tobis-Klangfilm)",
+            "ZZQ"
+        ],
+        "most_common_values": [
+            "Anonymous",
+            "(studio)",
+            "\"(DVD premiere)\""
+        ]
+    },
+    "movie_info_idx.info": {
+        "histogram_bounds": [
+            ".....*....",
+            "0001111101",
+            "1000010002",
+            "12",
+            "......17.1",
+            "24",
+            "3.8",
+            "5.1......2",
+            "6.1",
+            "7.3",
+            "996"
+        ],
+        "most_common_values": [
+            "6",
+            "5",
+            "7"
+        ]
+    },
+    "name.gender": {
+        "histogram_bounds": [
+            null
+        ],
+        "most_common_values": [
+            "m",
+            "f"
+        ]
+    },
+    "name.name_pcode_cf": {
+        "histogram_bounds": [
+            "A1",
+            "B6245",
+            "D1321",
+            "F6362",
+            "H545",
+            "L1461",
+            "M52",
+            "P4515",
+            "S2416",
+            "T5252",
+            "Z6545"
+        ],
+        "most_common_values": [
+            "A5362",
+            "M6352",
+            "J5252"
+        ]
+    },
+    "person_info.note": {
+        "histogram_bounds": [
+            "\"28 Films Ltd.\"",
+            "\"Anthony Winchester\"",
+            "\"Christina Nick\"",
+            "\"Eve Jablonkay\"",
+            "Hannah",
+            "\"JM Minot\"",
+            "Manager",
+            "\"Niels Solberg\"",
+            "\"Sacha Austin\"",
+            "\"Tom Jones\"",
+            "zohal"
+        ],
+        "most_common_values": [
+            "Anonymous"
+        ]
+    },
+    "role_type.role": {
+        "histogram_bounds": [
+            "actor",
+            "actress",
+            "cinematographer",
+            "composer",
+            "\"costume designer\"",
+            "director",
+            "editor",
+            "guest",
+            "\"miscellaneous crew\"",
+            "producer",
+            "writer"
+        ],
+        "most_common_values": [
+            null
+        ]
+    },
+    "title.episode_nr": {
+        "histogram_bounds": [
+            "11",
+            "12",
+            "15",
+            "19",
+            "23",
+            "31",
+            "48",
+            "80",
+            "147",
+            "768",
+            "15748"
+        ],
+        "most_common_values": [
+            "1",
+            "2",
+            "3"
+        ]
+    },
+    "title.production_year": {
+        "histogram_bounds": [
+            "1888",
+            "1932",
+            "1960",
+            "1970",
+            "1979",
+            "1986",
+            "1992",
+            "1996",
+            "1999",
+            "2001",
+            "2015"
+        ],
+        "most_common_values": [
+            "2011",
+            "2012",
+            "2010"
+        ]
+    },
+    "title.title": {
+        "histogram_bounds": [
+            "<--->",
+            "(1993-05-04)",
+            "(2012-04-26)",
+            "\"An der Saale hellem Strande - Ein Kulturhaus erzählt\"",
+            "\"Dad Wants Dough for Daughter's Dental\"",
+            "\"Get the Fever!\"",
+            "\"Lal Americayil\"",
+            "\"O Comissário de Polícia\"",
+            "\"Sikk'n et år - Danmarks største nytårsshow\"",
+            "\"The Quest to Understand the Biology of Weight Loss\"",
+            "\"Zwölf Minuten nach zwölf\""
+        ],
+        "most_common_values": [
+            "(#1.1)",
+            "(#1.2)",
+            "(#1.3)"
+        ]
+    }
+}

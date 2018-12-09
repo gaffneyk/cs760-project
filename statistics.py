@@ -26,10 +26,10 @@ def create_statistics(sql_dir):
 				sql = f.read()
 				node = parser.parse(sql) 
 
-				join_predicates = [p.to_sql() for p in ast.get_joins(node)]				
-				for join in join_predicates:
-					for attribute in join.split('='):
-						all_attributes.add(attribute)
+				#join_predicates = [p.to_sql() for p in ast.get_joins(node)]				
+				#for join in join_predicates:
+				#	for attribute in join.split('='):
+				#		all_attributes.add(attribute)
 	
 				selection_predicates= [p.left.to_sql() for p in ast.get_selections(node)]
 				for predicate in selection_predicates:
@@ -80,7 +80,7 @@ def create_statistics(sql_dir):
 		cur.close()
 		
 		f = open('statistics.json', 'w', encoding='utf-8')
-		f.write(json.dumps(statistics, indent=4, sort_keys=True))
+		f.write(json.dumps(statistics, ensure_ascii=False, indent=4, sort_keys=True))
 
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
