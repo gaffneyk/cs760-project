@@ -44,7 +44,7 @@ def featurize_join_graph(sql):
 	for join in ast.get_joins(node):
 		attributes = [attribute.strip() for attribute in join.to_sql().split(' = ')]
 		join_predicate = ' = '.join(sorted(attributes))
-		if join_predicate in join_graph:
+		if join_predicate in join_graphDict:
 			join_graphDict[join_predicate] = 1
 
 	join_graph = OrderedDict(sorted(join_graphDict.items())).items()
