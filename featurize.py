@@ -34,7 +34,7 @@ def featurize_join_graph(sql):
     with open('joins.json', 'r') as joins_file:
         join_specs = json.load(joins_file)
 
-        join_graph = {
+        join_graphDict = {
             '{}.{} = {}.{}'.format(join_spec['left_table_name'],
                                    join_spec['left_column_name'],
                                    join_spec['right_table_name'],
@@ -45,8 +45,9 @@ def featurize_join_graph(sql):
             attributes = [attribute.strip() for attribute in join.to_sql().split(' = ')]
             join_predicate = ' = '.join(sorted(attributes))
             if join_predicate in join_graph:
-                join_graph[join_predicate] = 1
+                join_graphDict[join_predicate] = 1
 
+	join_graph = OrderedDict(sorted(join_graphDict.items())).items()
         return join_graph
 
 #creates features on selection attributes
@@ -72,6 +73,7 @@ def featurize_selections(sql):
 	for name in featuresDict:
 		features = features+featuresDict[name] 
 	
+	return features
 	#print(features)
 
 #According to operation featurize the selection predicate - Histogram part
