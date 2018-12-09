@@ -55,10 +55,8 @@ def featurize_selections(sql):
 	statistics = json.load(statistics_file)
 
 	node = parser.parse(sql)
-
-	length = len(statistics[name]['most_common_values'])+1 if len(statistics[name]['histogram_bounds']) == 1 else (len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values'])-1)
 	
-	featuresDict = {name: [False]*(length) for name in statistics} 
+	featuresDict = {name: [False]*(len(statistics[name]['most_common_values'])+1 if len(statistics[name]['histogram_bounds']) == 1 else (len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values'])-1)) for name in statistics} 
 
 	featuresDict = OrderedDict(sorted(featuresDict.items()))
 
