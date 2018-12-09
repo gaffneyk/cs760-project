@@ -12,19 +12,19 @@ def featurize():
 	argument_parser.add_argument('sql_dir')
 	args = argument_parser.parse_args()
 
+	csv_file = open('data.csv', 'w', newline='')
+	wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+
 	with open('labels.csv', 'r') as labels_file:
 		reader = csv.DictReader(labels_file)
-		features = []:
+		features = []
+
 		for row in reader:
 			with open(os.path.join(args.sql_dir, row['filename']), 'r') as sql_file:
 				sql = sql_file.read()
 				selections = featurize_selections(sql)
 				join_graph = featurize_join_graph(sql)
-				features.append(join_graph+selections)
-
-	with open('data.csv', 'w', newline='') as csv_file:
-		wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-		wr.writerow(features)
+				wr.writerow(join_graph+selections)
 
 def featurize_join_graph(sql):
 	node = parser.parse(sql)
