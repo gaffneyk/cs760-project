@@ -1,0 +1,1 @@
+SELECT MIN(char_name.name), MIN(title.episode_nr) FROM title, char_name WHERE title.episode_nr > 22233 AND char_name.name IS NOT NULL;

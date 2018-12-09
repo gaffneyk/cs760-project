@@ -1,0 +1,1 @@
+SELECT MIN(movie_companies.company_id), MIN(company_name.name), MIN(company_name.id) FROM movie_companies, company_name WHERE company_name.name IS NULL AND company_name.id = movie_companies.company_id;

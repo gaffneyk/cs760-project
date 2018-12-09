@@ -1,0 +1,1 @@
+SELECT MIN(role_type.role), MIN(complete_cast.movie_id), MIN(movie_companies.note), MIN(movie_companies.movie_id) FROM role_type, movie_companies, complete_cast WHERE role_type.role IS NULL AND movie_companies.note != '(1997) (Italy) (video)' AND movie_companies.movie_id = complete_cast.movie_id;
