@@ -47,7 +47,7 @@ def featurize_join_graph(sql):
 		if join_predicate in join_graphDict:
 			join_graphDict[join_predicate] = 1
 
-	join_graph = OrderedDict(sorted(join_graphDict.items())).items()
+	join_graph = OrderedDict(sorted(join_graphDict.items())).values()
 	return join_graph
 
 #creates features on selection attributes
