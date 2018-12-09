@@ -1,44 +1,47 @@
 {
     "aka_name.name": {
         "histogram_bounds": [
-            "\"13",
-            " Grupp\"",
-            "\"Boutazak",
-            " Iván\"",
-            "\"Dan DeLuca\"",
-            "Foxy",
-            "Hørlykke",
-            "\"Kusubandio",
-            " Wishnutama\"",
-            "\"Mendez",
-            " Luis Jaime\"",
-            "\"Peitschew",
-            " Stephan\"",
-            "\"Savun",
-            " Loeng-Wong\"",
-            "\"Thongaram",
-            " Kanokporn\"",
-            " David Murry Andrews"
+            "...",
+            "\"Brachetto",
+            " Teresa Marie\"",
+            "\"da Silva",
+            " Ben Cristovao\"",
+            "\"Francoi",
+            " Carmen\"",
+            "\"Horsell",
+            " Sarah\"",
+            "\"Lachapelle",
+            " Jeff\"",
+            "\"Meeks",
+            " Rev. James\"",
+            "\"Pelton",
+            " Courtney\"",
+            "\"Savcic",
+            " Vladimir\"",
+            "\"Three",
+            " Bananarama and Fun Boy\"",
+            "\"Zykova",
+            " Mariya Stanislavovna\""
         ],
         "most_common_values": [
-            "Jimmy",
-            "Billy",
-            "Jen"
+            "Tony",
+            "Chris",
+            "Bill"
         ]
     },
     "cast_info.note": {
         "histogram_bounds": [
-            "(1954)",
-            "\"(as David Fernandez)\"",
-            "\"(assistant location manager)\"",
-            "\"(co-executive producer)\"",
-            "(dialogue)",
-            "(lead)",
-            "\"(post producer)\"",
-            "(Referee)",
-            "\"(senior producer)\"",
+            "(1957-1970)",
+            "\"(as David Pérez)\"",
+            "\"(assistant location manager) (as Jennifer King)\"",
+            "(co-editor)",
+            "\"(credit only)\"",
+            "\"(head writer)\"",
+            "\"(other crew)\"",
+            "\"(project manager)\"",
+            "\"(senior associate producer)\"",
             "\"(supervising producer)\"",
-            "(young)"
+            "\"(zoom operator)\""
         ],
         "most_common_values": [
             "(producer)",
@@ -48,18 +51,17 @@
     },
     "char_name.name": {
         "histogram_bounds": [
-            "0",
-            "Brier",
-            "\"Detective Kilsip\"",
-            "\"Frau Hahn\"",
-            "\"Himself - Senior Lecturer in Consumer Behaviour and Marketing",
-            " Deacon University\"",
-            "\"Kid at Playground #5\"",
-            "\"Marie Grasmüller\"",
-            "\"Observation Guard\"",
-            "\"Rod Cathcart\"",
-            "Teesa",
-            "\"Þjónustufulltrúi í banka\""
+            "10033",
+            "\"Bread Lady\"",
+            "\"Det. Alma Peterson\"",
+            "\"Frank Hilsmann\"",
+            "\"Himself - North Dakota Senator\"",
+            "\"Ken Strom\"",
+            "\"Maria Amélia\"",
+            "Niranjan",
+            "\"Rita St. James\"",
+            "Tatkoto",
+            "Þóra"
         ],
         "most_common_values": [
             null
@@ -78,16 +80,16 @@
     },
     "company_name.country_code": {
         "histogram_bounds": [
-            "[ae]",
+            "[ad]",
             "[be]",
             "[ch]",
             "[do]",
             "[hk]",
-            "[kr]",
+            "[jo]",
             "[mx]",
             "[nl]",
             "[pl]",
-            "[sg]",
+            "[se]",
             "[zw]"
         ],
         "most_common_values": [
@@ -98,22 +100,22 @@
     },
     "company_name.name": {
         "histogram_bounds": [
-            "\"037 Productions\"",
-            "\"Best Film CO\"",
-            "\"Connossieur Video\"",
-            "\"Ex Nihilo\"",
-            "\"Hectic Films\"",
-            "\"L.A.D.S Entertainment\"",
-            "\"Moonspun Films\"",
-            "Point",
-            "\"Seven Seas Productions\"",
-            "\"Time-Life Pictures\"",
-            "ZZ-Film"
+            "\"02 Films\"",
+            "\"Bert Kaiser Productions Inc.\"",
+            "\"Consider It Correspondence\"",
+            "\"Extreme Entertainment Group\"",
+            "\"Haydon & Urry\"",
+            "\"Kyodo Television\"",
+            "\"Mormon Movies LLC\"",
+            "\"Podolchak Films\"",
+            "\"Shankar Kathachitra\"",
+            "\"Toei Agency\"",
+            "\"ZZinc Films\""
         ],
         "most_common_values": [
-            "\"United International Pictures (UIP)\"",
-            "Nickelodeon",
-            "\"Sony Pictures Releasing\""
+            "\"Sony Pictures Releasing\"",
+            "AXN",
+            "TV3"
         ]
     },
     "company_type.kind": {
@@ -147,17 +149,19 @@
     },
     "keyword.keyword": {
         "histogram_bounds": [
-            "10000th-century-b.c.",
-            "box-of-matches",
-            "criminal-attack",
-            "feeling-cold",
-            "hollow-earth",
-            "made-in-texas",
-            "panel-show",
-            "reference-to-henry-vi",
-            "shakespeare's-henry-iv-part-one",
-            "throwing-a-bra",
-            "zwarte-pieten"
+            "\"$1",
+            "000",
+            "000-prize\"",
+            "box-of-chocolates",
+            "crooked-cousin",
+            "female-painter",
+            "hometown",
+            "making-weather",
+            "parallel-time",
+            "reference-to-hans-geiger",
+            "shark-bitten-by-a-zombie",
+            "three-eyed-toad",
+            "zz-top"
         ],
         "most_common_values": [
             null
@@ -197,47 +201,41 @@
     },
     "movie_companies.note": {
         "histogram_bounds": [
-            "(????-????)",
-            "\"(1948) (France) (theatrical)\"",
+            "\"(1856) (USA) (theatrical)\"",
+            "\"(1946) (USA) (theatrical)\"",
             "\"(1972) (USA) (TV)\"",
-            "\"(1991) (USA) (TV)\"",
-            "\"(2001) (USA) (TV)\"",
-            "\"(2005) (UK) (theatrical)\"",
-            "\"(2008) (Argentina) (all media)\"",
-            "\"(2010) (Canada) (TV)\"",
-            "\"(2012) (Austria) (TV)\"",
-            "\"(as Vanity Comedies)\"",
-            "\"(YLE TV2 Viihde)\""
+            "\"(1992) (Japan) (VHS)\"",
+            "\"(2002) (Denmark) (TV)\"",
+            "\"(2005) (USA) (TV)\"",
+            "\"(2008) (Denmark) (theatrical)\"",
+            "\"(2010) (France) (theatrical)\"",
+            "\"(2011) (worldwide) (all media)\"",
+            "\"(as Jack Chertok Television",
+            " Inc.)\"",
+            "(Yugoslavia)"
         ],
         "most_common_values": [
             "\"(in association with)\"",
             "(co-production)",
-            "\"(2007) (USA) (DVD)\""
+            "\"(2006) (USA) (DVD)\""
         ]
     },
     "movie_info.info": {
         "histogram_bounds": [
             "-",
             "Action",
-            "\"Canada:15 March 2010\"",
-            "\"Don't talk to anyone. Don't touch anyone.\"",
-            "\"GFA reaches their breaking point when thunderstorms put a damper on their back-to-back shows on a lake in Ste-Agathe. As the pyros battle wind and water",
-            " mishaps quickly multiply and suddenly everyone's safety is at risk. Across the Atlantic at an international competition on the coast of France",
-            " Philippe and Benoit quickly realize no one plays by the rules and that their supplier has sent them the wrong products. Outgunned by their competitors",
-            " the underdogs find that fate has a way of defying expectations.\"",
-            "\"LAB:DuArt Film Laboratories Inc.",
-            " New York",
-            " USA\"",
+            "\"Canada:16 December 2005\"",
+            "\"Dr. Moira MacTaggart: You cannot ignore our readings",
+            " Hank. It's a miracle we've been able to keep him going this long.::Beast: Yes. We are only human... for lack of a better expression.\"",
+            "\"Germany:9 February 2001\"",
+            "\"LAB:Film House",
+            " Toronto",
+            " Ontario",
+            " Canada\"",
             "PCS:Spherical",
-            "\"Söderqvist",
-            " Jan. \\\"Kärlekshistoria kvävs av klichéer (2/6)\\\". In: \\\"Svenska Dagbladet\\\" (Sweden)",
-            " 24 June 2009",
-            " (NP)\"",
-            "\"Today is Chad's Birthday and his boyfriend",
-            " who is out-of-town",
-            " has sent him a birthday gift in the mail. Soon after Chad receives the gift",
-            " Billy arrives to deliver a package of his own. Chad soon discovers that this birthday may not have the happy ending that he was expecting and that his cheating ways may finally come back to bite him!\"",
-            "\"USA:20 February 1989\"",
+            "Sinhala",
+            "Thriller",
+            "USA:2007",
             "\"Zürich",
             " Kanton Zürich",
             " Switzerland\""
@@ -250,17 +248,17 @@
     },
     "movie_info.note": {
         "histogram_bounds": [
-            "\"(105 episodes)\"",
-            "alfiehitchie",
-            "(Catalonia)",
-            "(Eastmancolor)",
-            "gavin@sunny_deol2009@yahoo.com",
-            "\"Jim Beaver <jumblejim@prodigy.net>\"",
-            "\"MicroPisti <micropisti@freemail.hu>\"",
-            "\"(Ottawa European Union Film Festival)\"",
-            "\"(San Francisco Independent Film Festival)\"",
-            "(Tobis-Klangfilm)",
-            "ZZQ"
+            "\"(1001 Documentary Film Festival)\"",
+            "Anon",
+            "\"(Cinemanila International Film Festival)\"",
+            "\"Edison Catalog\"",
+            "\"(Haapsalu Horror and Fantasy Film Festival)\"",
+            "\"Kevin McElroy\"",
+            "mrdario64",
+            "\"(PCA #15258)\"",
+            "\"(season 1 - episode 3)\"",
+            "(titles)",
+            "\"(Zinebi International Festival of Documentary and Short Film)\""
         ],
         "most_common_values": [
             "Anonymous",
@@ -270,22 +268,22 @@
     },
     "movie_info_idx.info": {
         "histogram_bounds": [
-            ".....*....",
-            "0001111101",
-            "1000010002",
-            "12",
-            "......17.1",
-            "24",
+            "......*...",
+            "0001111001",
+            "1000010003",
+            "1...1....8",
+            "17",
+            "240",
             "3.8",
-            "5.1......2",
+            "52",
             "6.1",
             "7.3",
             "996"
         ],
         "most_common_values": [
             "6",
-            "5",
-            "7"
+            "7",
+            "5"
         ]
     },
     "name.gender": {
@@ -297,19 +295,50 @@
             "f"
         ]
     },
+    "name.name": {
+        "histogram_bounds": [
+            "\"2000",
+            " Bamboula\"",
+            "\"Boyd",
+            " Mark\"",
+            "\"Davidson",
+            " Joshua\"",
+            "\"Galasso",
+            " Thomas\"",
+            "\"Hsiao",
+            " Chi\"",
+            "\"Langstraat",
+            " Anje\"",
+            "\"Millard",
+            " Richard\"",
+            "\"Petersson",
+            " Bo-Ivan\"",
+            "\"Schoenfeld",
+            " Jenna\"",
+            "\"Toohill",
+            " Connor\"",
+            "\"Þorsteinsson",
+            " Gunnar Örn\""
+        ],
+        "most_common_values": [
+            "\"Jones",
+            " Peter\"",
+            "\"Williams"
+        ]
+    },
     "name.name_pcode_cf": {
         "histogram_bounds": [
-            "A1",
-            "B6245",
-            "D1321",
-            "F6362",
-            "H545",
-            "L1461",
-            "M52",
-            "P4515",
-            "S2416",
-            "T5252",
-            "Z6545"
+            "A12",
+            "B6256",
+            "D1325",
+            "F6526",
+            "H6323",
+            "L2165",
+            "M525",
+            "P4523",
+            "S252",
+            "T5254",
+            "Z6562"
         ],
         "most_common_values": [
             "A5362",
@@ -319,17 +348,18 @@
     },
     "person_info.note": {
         "histogram_bounds": [
-            "\"28 Films Ltd.\"",
-            "\"Anthony Winchester\"",
-            "\"Christina Nick\"",
-            "\"Eve Jablonkay\"",
-            "Hannah",
-            "\"JM Minot\"",
-            "Manager",
-            "\"Niels Solberg\"",
-            "\"Sacha Austin\"",
-            "\"Tom Jones\"",
-            "zohal"
+            ".",
+            "Anynomous",
+            "\"Dajour Ashwood",
+            " LaJeanna Bailey\"",
+            "\"Florence S. Phillips - sister (qv's & corrections by A. Nonymous)\"",
+            "\"insane4frame GmbH & Co. Kg\"",
+            "JWH",
+            "\"Matthew Torres\"",
+            "office@billviola.com",
+            "rtvf",
+            "tif",
+            "zymi25@gmx.de"
         ],
         "most_common_values": [
             "Anonymous"
@@ -361,11 +391,11 @@
             "19",
             "23",
             "31",
-            "48",
-            "80",
-            "147",
-            "768",
-            "15748"
+            "46",
+            "81",
+            "148",
+            "778",
+            "15734"
         ],
         "most_common_values": [
             "1",
@@ -375,42 +405,42 @@
     },
     "title.production_year": {
         "histogram_bounds": [
-            "1888",
-            "1932",
+            "1891",
+            "1934",
             "1960",
             "1970",
             "1979",
-            "1986",
-            "1992",
-            "1996",
+            "1987",
+            "1993",
+            "1997",
             "1999",
-            "2001",
+            "2002",
             "2015"
         ],
         "most_common_values": [
-            "2011",
             "2012",
+            "2011",
             "2010"
         ]
     },
     "title.title": {
         "histogram_bounds": [
-            "<--->",
-            "(1993-05-04)",
-            "(2012-04-26)",
-            "\"An der Saale hellem Strande - Ein Kulturhaus erzählt\"",
-            "\"Dad Wants Dough for Daughter's Dental\"",
-            "\"Get the Fever!\"",
-            "\"Lal Americayil\"",
-            "\"O Comissário de Polícia\"",
-            "\"Sikk'n et år - Danmarks største nytårsshow\"",
-            "\"The Quest to Understand the Biology of Weight Loss\"",
-            "\"Zwölf Minuten nach zwölf\""
+            "\"007 - Hue Bond: Vive y Deja Chifar\"",
+            "(#1.9930)",
+            "(2012-04-05)",
+            "\"Animals: Small Birds\"",
+            "\"Dark Ways\"",
+            "\"Glauben heute - Mit oder ohne Kirche?\"",
+            "\"Laponia: Land of the Midnight Sun\"",
+            "\"OK! TV\"",
+            "\"Sins of the Mother\"",
+            "\"The Poet & Pepper\"",
+            "\"Zwölf Stühle\""
         ],
         "most_common_values": [
             "(#1.1)",
             "(#1.2)",
-            "(#1.3)"
+            "(#1.4)"
         ]
     }
 }
