@@ -71,7 +71,7 @@ def featurize_selections(sql):
 	for name in featuresDict:
 		features = features+featuresDict[name] 
 	
-	return features
+	return [int(item) for item in features]
 	#print(features)
 
 #According to operation featurize the selection predicate - Histogram part
