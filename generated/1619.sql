@@ -1,0 +1,1 @@
+SELECT MIN(role_type.role), MIN(name.gender), MIN(person_info.person_id), MIN(aka_name.person_id), MIN(aka_name.name) FROM role_type, name, aka_name, person_info WHERE aka_name.name IS NULL AND name.gender = '' AND role_type.role != 'editor' AND person_info.person_id = aka_name.person_id;

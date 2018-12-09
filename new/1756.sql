@@ -1,0 +1,1 @@
+SELECT MIN(cast_info.role_id), MIN(cast_info.note), MIN(role_type.id), MIN(kind_type.kind) FROM role_type, cast_info, kind_type WHERE cast_info.note IS NOT NULL AND kind_type.kind = 'tv movie' AND role_type.id = cast_info.role_id;

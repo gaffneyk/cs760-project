@@ -1,0 +1,1 @@
+SELECT MIN(char_name.name), MIN(aka_name.name), MIN(name.name_pcode_cf), MIN(kind_type.kind) FROM name, aka_name, char_name, kind_type WHERE name.name_pcode_cf IS NULL AND aka_name.name != 'Sam' AND kind_type.kind != 'tv movie' AND char_name.name = 'Narrator';

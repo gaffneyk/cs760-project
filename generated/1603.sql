@@ -1,0 +1,1 @@
+SELECT MIN(aka_name.name), MIN(company_type.kind), MIN(person_info.note) FROM aka_name, person_info, company_type WHERE person_info.note IS NOT NULL AND aka_name.name IS NOT NULL AND company_type.kind IS NOT NULL;

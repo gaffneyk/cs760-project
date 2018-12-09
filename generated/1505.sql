@@ -1,0 +1,1 @@
+SELECT MIN(comp_cast_type.kind), MIN(title.production_year), MIN(company_name.country_code) FROM title, company_name, comp_cast_type WHERE comp_cast_type.kind IS NULL AND title.production_year IN (1952, 1900, 1882, 2008, 1950, 1947, 1915, 2013, 1955) AND company_name.country_code = '[kr]';

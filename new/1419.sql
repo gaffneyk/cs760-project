@@ -1,0 +1,1 @@
+SELECT MIN(aka_name.person_id), MIN(person_info.person_id), MIN(name.gender), MIN(name.id) FROM name, aka_name, person_info WHERE name.gender = '' AND name.id = aka_name.person_id AND name.id = person_info.person_id;

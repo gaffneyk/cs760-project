@@ -1,0 +1,1 @@
+SELECT MIN(title.episode_nr) FROM title WHERE title.episode_nr IN (39389, 48565, 29743, 62295, 64782, 58992, 72942, 86293);

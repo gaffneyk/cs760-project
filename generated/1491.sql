@@ -1,0 +1,1 @@
+SELECT MIN(complete_cast.subject_id), MIN(comp_cast_type.kind), MIN(comp_cast_type.id) FROM complete_cast, comp_cast_type WHERE comp_cast_type.kind IN ('complete+verified', 'cast', 'complete', 'crew') AND comp_cast_type.id = complete_cast.subject_id;

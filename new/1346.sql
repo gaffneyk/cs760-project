@@ -1,0 +1,1 @@
+SELECT MIN(company_name.country_code) FROM company_name WHERE company_name.country_code IN ('[na]', '[mn]', '[th]', '[bg]', '[us]', '[ki]', '[in]', '[ee]', '[fr]', '[gl]', '[ca]', '[es]', '[kr]', '[it]', '[bm]', '[gb]', '[de]', '[ve]', '[au]', '[jp]');

@@ -1,0 +1,1 @@
+SELECT MIN(char_name.id), MIN(char_name.name), MIN(cast_info.person_role_id) FROM char_name, cast_info WHERE char_name.name = 'Cpt. Sokolowski' AND char_name.id = cast_info.person_role_id;
