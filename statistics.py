@@ -80,7 +80,7 @@ def create_statistics(sql_dir):
 		cur.close()
 		
 		f = open('statistics.json', 'w', encoding='utf-8')
-		f.write(json.dumps(statistics, indent=4, sort_keys=True))
+		f.write(json.dumps(statistics, ensure_ascii=False, indent=4, sort_keys=True))
 
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
