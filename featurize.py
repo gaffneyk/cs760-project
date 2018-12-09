@@ -15,17 +15,13 @@ def featurize():
 	with open('labels.csv', 'r') as labels_file:
 		reader = csv.DictReader(labels_file)
 		features = []
-		for row in reader:
-			with open(os.path.join(args.sql_dir, row['filename']), 'r') as sql_file:
-				sql = sql_file.read()
-				selections = featurize_selections(sql)
-				join_graph = featurize_join_graph(sql)
-				features.append(join_graph+selections)
-
-	with open('data.csv', 'w') as csv_file:
-		writer = csv.DictWriter(csv_file)
-		# writer.writeheader()
-		writer.writerows(features)
+		with open('data.csv', 'a') as csv_file:
+			for row in reader:
+				with open(os.path.join(args.sql_dir, row['filename']), 'r') as sql_file:
+					sql = sql_file.read()
+					selections = featurize_selections(sql)
+					join_graph = featurize_join_graph(sql)
+					csv_file.writeline(join_graph+selections)
 
 
 def featurize_join_graph(sql):
@@ -143,7 +139,6 @@ def mcv_featurize(node, statistics):
 			features.append(cv <= node.right.right.to_sql().replace('\'', '') and\
 					cv >= node.right.left.to_sql().replace('\'', ''))
 		elif(node.operation == 'NOT BETWEEN'):
-			print(node.right.right.to_sql())
 			features.append(cv > node.right.right.to_sql().replace('\'', '') or\
 					cv < node.right.left.to_sql().replace('\'', ''))
 		elif(node.operation == 'IN'):
