@@ -58,8 +58,7 @@ def featurize_selections(sql):
 
 	length = len(statistics[name]['most_common_values'])+1 if len(statistics[name]['histogram_bounds']) == 1 else (len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values'])-1)
 	
-	featuresDict = {name: [False]*(\
-		 for name in statistics} 
+	featuresDict = {name: [False]*(length) for name in statistics} 
 
 	featuresDict = OrderedDict(sorted(featuresDict.items()))
 
