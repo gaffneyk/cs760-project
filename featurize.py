@@ -56,7 +56,8 @@ def featurize_selections(sql):
 
 	node = parser.parse(sql)
 	
-	featuresDict = {name: [False]*(len(statistics[name]['most_common_values'])+1 if len(statistics[name]['histogram_bounds']) == 1 else (len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values'])-1)) for name in statistics} 
+	featuresDict = {name: [False]*(len(statistics[name]['most_common_values'])+1 if statistics[name]['histogram_bounds'][0] == 'None' else (len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values'])-1)) for name in statistics} 
+
 
 	featuresDict = OrderedDict(sorted(featuresDict.items()))
 
@@ -69,9 +70,10 @@ def featurize_selections(sql):
 	features = []
 	for name in featuresDict:
 		features = features+featuresDict[name] 
-	
+
+	print(len(features))	
 	return [int(item) for item in features]
-	#print(features)
+	print(len(features))
 
 #According to operation featurize the selection predicate - Histogram part
 def hist_featurize(node, statistics):
