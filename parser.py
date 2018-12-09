@@ -94,7 +94,12 @@ def p_term(p):
             | NOT NULL
             | INTEGER
             | STRING"""
-    p[0] = ast.TermNode(term=' '.join(p[1:]))
+    term = ' '.join(p[1:])
+    try:
+        term = int(term)
+    except:
+        pass
+    p[0] = ast.TermNode(term=term)
 
 
 def p_like(p):
