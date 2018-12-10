@@ -15,22 +15,24 @@ def featurize_selections(sql):
 
 	node = parser.parse(sql)
 	
-	featuresDict = {name: [False]*(len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values']))\
-		 for name in statistics} 
+	featuresDict = {name: [False]*(len(statistics[name]['most_common_values'])+1 if statistics[name]['histogram_bounds'][0] == 'None' else (len(statistics[name]['histogram_bounds'])+len(statistics[name]['most_common_values'])-1)) for name in statistics} 
+
 
 	featuresDict = OrderedDict(sorted(featuresDict.items()))
 
 	selection_predicates = ast.get_selections(node)
 	for predicate in selection_predicates:
 		featuresDict[predicate.left.to_sql()] = hist_featurize(predicate, statistics)+mcv_featurize(predicate, statistics)
-
+		#print(predicate.left.to_sql())
+		#print(featuresDict[predicate.left.to_sql()])
 	#print(json.dumps(featuresDict, indent=4, sort_keys=True))
 
 	features = []
 	for name in featuresDict:
 		features = features+featuresDict[name] 
-	
-	#print(features)
+
+	print(len(features))	
+	return [int(item) for item in features]
 
 #According to operation featurize the selection predicate - Histogram part
 def hist_featurize(node, statistics):
@@ -42,35 +44,65 @@ def hist_featurize(node, statistics):
 
 	for bucket in range(len(statistics[node.left.to_sql()]['histogram_bounds'])-1):
 		
-		low = statistics[node.left.to_sql()]['histogram_bounds'][bucket]
+		low = statistics[node.left.to_sql()]['histogram_bounds'][bucket] 
 		high = statistics[node.left.to_sql()]['histogram_bounds'][bucket+1]
+
+		if(node.operation == '<=' or node.operation == '<' or node.operation == '>=' \
+		or node.operation == '>' or node.operation == '=' or node.operation == 'IS'):
+			value = node.right.to_sql().replace('\'', '')
+			if(low.isdigit() and high.isdigit() and value.isdigit()):
+				low = int(low)
+				high = int(high)
+				value = int(value)
+
+		elif(node.operation == 'BETWEEN' or node.operation == 'NOT BETWEEN'):
+			valueR = node.right.right.to_sql().replace('\'', '')
+			valueL = node.right.left.to_sql().replace('\'', '')
+
+			if(low.isdigit() and high.isdigit() and	valueR.isdigit() and valueL.isdigit()):
+				low = int(low)
+				high = int(high)
+				valueR = int(valueR)
+				valueL = int(valueL)
+
+		elif(node.operation == 'IN'):
+			flag = False;
+			for i in range(len(node.right.items)):
+				flag = flag or (low <= node.right.items[i].to_sql() and\
+							high >= node.right.items[i].to_sql())
+			tempFlag = True;
+			for i in range(len(node.right.items)):
+				tempFlag = tempFlag and node.right.items[i].to_sql().isdigit()
+			if(low.isdigit() and high.isdigit() and tempFlag):
+				flag = False;
+				for i in range(len(node.right.items)):
+					flag = flag or (int(low) <= int(node.right.items[i].to_sql()) and\
+								int(high) >= int(node.right.items[i].to_sql()))
+
+		
 		
 		if(node.operation == '<='):
-			features.append(low <= node.right.to_sql().replace('\'', ''))
+			features.append(low <= value)
 		elif(node.operation == '<'):
-			features.append(low < node.right.to_sql().replace('\'', ''))
+			features.append(low < value)
 		elif(node.operation == '>='):
-			features.append(high >= node.right.to_sql().replace('\'', ''))
+			features.append(high >= value)
 		elif(node.operation == '>'):
-			features.append(high > node.right.to_sql().replace('\'', ''))
+			features.append(high > value)
 		elif(node.operation == '=' or node.operation == 'IS' ):
-			features.append(low <= node.right.to_sql().replace('\'', '') and\
-					high >= node.right.to_sql().replace('\'', ''))
+			features.append(low <= value and\
+					high >= value)
 		elif(node.operation == '!='):
-			features.append(low > node.right.to_sql().replace('\'', '') or\
-					high < node.right.to_sql().replace('\'', ''))
+			features.append(low > value or\
+					high < value)
 		elif(node.operation == 'BETWEEN'):
-			features.append(low <= node.right.right.to_sql().replace('\'', '') and\
-					high >= node.right.left.to_sql().replace('\'', ''))
+			features.append(low < valueR and\
+					high > valueL)
 		elif(node.operation == 'NOT BETWEEN'):
-			features.append(low > node.right.right.to_sql().replace('\'', '') or\
-					high < node.right.left.to_sql().replace('\'', ''))
+			features.append(low >= valueR or\
+					high <= valueL)
 		elif(node.operation == 'IN'):
-			tempFlag = False;
-			for i in range(len(node.right.items)):
-				tempFlag = tempFlag or (low <= node.right.items[i].to_sql() and\
-							high >= node.right.items[i].to_sql())
-			features.append(tempFlag)			
+			features.append(flag)			
 		
 	return features
 
@@ -81,34 +113,59 @@ def mcv_featurize(node, statistics):
 		
 		cv = statistics[node.left.to_sql()]['most_common_values'][mcv]
 
+		if(node.operation == '<=' or node.operation == '<' or node.operation == '>=' \
+		or node.operation == '>' or node.operation == '=' or node.operation == 'IS'):
+			value = node.right.to_sql().replace('\'', '')
+			if(cv.isdigit() and node.right.to_sql().replace('\'', '').isdigit()):
+				cv = int(cv)
+				value = int(value)
+
+		elif(node.operation == 'BETWEEN' or node.operation == 'NOT BETWEEN'):
+			valueR = node.right.right.to_sql().replace('\'', '')
+			valueL = node.right.left.to_sql().replace('\'', '')
+
+			if(cv.isdigit() and valueR.isdigit() and valueL.isdigit()):
+				cv= int(cv)
+				valueR = int(valueR)
+				valueL = int(valueL)
+
+		elif(node.operation == 'IN'):
+			flag = False;
+			for i in range(len(node.right.items)):
+				flag = flag or (cv == node.right.items[i].to_sql())
+			tempFlag = True;
+			for i in range(len(node.right.items)):
+				tempFlag = tempFlag and node.right.items[i].to_sql().isdigit()
+			if(cv.isdigit() and tempFlag):
+				flag = False;
+				for i in range(len(node.right.items)):
+					flag = flag or (int(cv) == int(node.right.items[i].to_sql()))
+
 		if(cv == 'None'):
 			features.append(False)
 		elif(node.operation == '<='):
-			features.append(cv <= node.right.to_sql().replace('\'', ''))
+			features.append(cv <= value)
 		elif(node.operation == '<'):
-			features.append(cv < node.right.to_sql().replace('\'', ''))
+			features.append(cv < value)
 		elif(node.operation == '>='):
-			features.append(cv >= node.right.to_sql().replace('\'', ''))
+			features.append(cv >= value)
 		elif(node.operation == '>'):
-			features.append(cv > node.right.to_sql().replace('\'', ''))
+			features.append(cv > value)
 		elif(node.operation == '=' or node.operation == 'IS' ):
-			features.append(cv == node.right.to_sql().replace('\'', ''))
+			features.append(cv == value)
 		elif(node.operation == '!='):
-			features.append(cv != node.right.to_sql().replace('\'', ''))
+			features.append(cv != value)
 		elif(node.operation == 'BETWEEN'):
-			features.append(cv <= node.right.right.to_sql().replace('\'', '') and\
-					cv >= node.right.left.to_sql().replace('\'', ''))
+			features.append(cv < valueR and\
+					cv > valueL)
 		elif(node.operation == 'NOT BETWEEN'):
-			print(node.right.right.to_sql())
-			features.append(cv > node.right.right.to_sql().replace('\'', '') or\
-					cv < node.right.left.to_sql().replace('\'', ''))
+			features.append(cv >= valueR or\
+					cv <= valueL)
 		elif(node.operation == 'IN'):
-			tempFlag = False;
-			for i in range(len(node.right.items)):
-				tempFlag = tempFlag or (cv == node.right.items[i].to_sql())
-			features.append(tempFlag)
+			features.append(flag)
 			
 	return features
+
 
 			
 f = open('join-order-benchmark/queries/6a.sql', 'r')
