@@ -17,14 +17,20 @@ def featurize():
 
 	with open('labels.csv', 'r') as labels_file:
 		reader = csv.DictReader(labels_file)
-		features = []
+		features = OrderedDict()
 
 		for row in reader:
 			with open(os.path.join(args.sql_dir, row['filename']), 'r') as sql_file:
 				sql = sql_file.read()
 				selections = featurize_selections(sql)
 				join_graph = featurize_join_graph(sql)
-				wr.writerow(join_graph+selections)
+				features[int(row['filename'].split('.')[0])]=(join_graph+selections)
+
+	print(features)
+	with open('data.csv', 'w', newline='') as csv_file:
+		wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+		for row in features:
+			wr.writerow(features[row])
 
 def featurize_join_graph(sql):
 	node = parser.parse(sql)
@@ -73,7 +79,6 @@ def featurize_selections(sql):
 
 	print(len(features))	
 	return [int(item) for item in features]
-	print(len(features))
 
 #According to operation featurize the selection predicate - Histogram part
 def hist_featurize(node, statistics):
