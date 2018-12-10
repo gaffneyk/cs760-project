@@ -113,6 +113,10 @@ def mcv_featurize(node, statistics):
 		
 		cv = statistics[node.left.to_sql()]['most_common_values'][mcv]
 
+		if(cv == 'None'):
+			features.append(False)
+			return
+
 		if(node.operation == '<=' or node.operation == '<' or node.operation == '>=' \
 		or node.operation == '>' or node.operation == '=' or node.operation == 'IS'):
 			value = node.right.to_sql().replace('\'', '')
@@ -141,9 +145,8 @@ def mcv_featurize(node, statistics):
 				for i in range(len(node.right.items)):
 					flag = flag or (int(cv) == int(node.right.items[i].to_sql()))
 
-		if(cv == 'None'):
-			features.append(False)
-		elif(node.operation == '<='):
+		
+		if(node.operation == '<='):
 			features.append(cv <= value)
 		elif(node.operation == '<'):
 			features.append(cv < value)
