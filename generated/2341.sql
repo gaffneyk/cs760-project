@@ -1,0 +1,1 @@
+SELECT MIN(person_info.person_id), MIN(name.name), MIN(name.id) FROM name, person_info WHERE name.name IS NOT NULL AND name.id = person_info.person_id;

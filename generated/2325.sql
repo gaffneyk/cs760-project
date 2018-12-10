@@ -1,0 +1,1 @@
+SELECT MIN(role_type.role), MIN(link_type.link), MIN(comp_cast_type.kind), MIN(movie_info.note), MIN(char_name.name) FROM role_type, comp_cast_type, char_name, link_type, movie_info WHERE link_type.link != 'referenced in' AND comp_cast_type.kind IS NOT NULL AND role_type.role != 'actor' AND char_name.name IS NULL AND movie_info.note != '(video premiere)';

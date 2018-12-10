@@ -1,0 +1,1 @@
+SELECT MIN(name.gender) FROM name WHERE name.gender = '';

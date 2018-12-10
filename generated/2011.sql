@@ -1,0 +1,1 @@
+SELECT MIN(aka_name.name), MIN(info_type.info), MIN(name.gender) FROM info_type, aka_name, name WHERE info_type.info = 'LD original title' AND aka_name.name = 'Strait, George Harvey' AND name.gender IN ('m', 'f', '');

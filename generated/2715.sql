@@ -1,0 +1,1 @@
+SELECT MIN(name.name_pcode_cf), MIN(movie_info.note) FROM movie_info, name WHERE movie_info.note = '(DVD premiere)' AND name.name_pcode_cf IN ('H6514', 'B6525', 'A5362', 'S3152', 'D3453', 'S5351', 'Q1323', 'O6254', 'P3625', 'J5252', 'R1632', 'I326', 'M6352', 'A5315', 'T5125', 'G5242', 'Y6415', 'D5254', 'B341', 'P6252');

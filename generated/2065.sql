@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link), MIN(movie_info.movie_id), MIN(movie_info.note), MIN(movie_keyword.movie_id), MIN(kind_type.kind), MIN(keyword.keyword) FROM keyword, movie_keyword, kind_type, link_type, movie_info WHERE keyword.keyword IS NULL AND movie_info.note IS NULL AND kind_type.kind = 'video game' AND link_type.link != 'spoofs' AND movie_keyword.movie_id = movie_info.movie_id;

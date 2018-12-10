@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link), MIN(comp_cast_type.id), MIN(complete_cast.subject_id), MIN(comp_cast_type.kind) FROM link_type, complete_cast, comp_cast_type WHERE link_type.link != 'features' AND comp_cast_type.kind IN ('complete', 'cast', 'crew', 'complete+verified') AND comp_cast_type.id = complete_cast.subject_id;

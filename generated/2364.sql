@@ -1,0 +1,1 @@
+SELECT MIN(role_type.role), MIN(cast_info.role_id), MIN(role_type.id) FROM role_type, cast_info WHERE role_type.role IS NOT NULL AND role_type.id = cast_info.role_id;

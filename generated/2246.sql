@@ -1,0 +1,1 @@
+SELECT MIN(name.name_pcode_cf), MIN(link_type.link) FROM link_type, name WHERE name.name_pcode_cf IN ('B341', 'Y6415', 'D3453', 'Q1323', 'D5254', 'T5125', 'A5362', 'B6525', 'I326', 'H6514', 'R1632', 'P6252', 'O6254', 'S5351', 'J5252', 'A5315', 'M6352', 'S3152', 'G5242', 'P3625') AND link_type.link != 'edited from';

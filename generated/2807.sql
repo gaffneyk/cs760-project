@@ -1,0 +1,1 @@
+SELECT MIN(movie_companies.company_id), MIN(company_name.id), MIN(company_name.country_code) FROM movie_companies, company_name WHERE company_name.country_code != '[ca]' AND company_name.id = movie_companies.company_id;

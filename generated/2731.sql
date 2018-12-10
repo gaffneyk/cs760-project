@@ -1,0 +1,1 @@
+SELECT MIN(company_type.kind), MIN(movie_companies.company_type_id), MIN(company_type.id) FROM movie_companies, company_type WHERE company_type.kind IN ('special effects companies', 'distributors', 'production companies', 'miscellaneous companies') AND company_type.id = movie_companies.company_type_id;

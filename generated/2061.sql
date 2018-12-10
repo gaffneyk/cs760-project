@@ -1,0 +1,1 @@
+SELECT MIN(person_info.info_type_id), MIN(info_type.id), MIN(person_info.note), MIN(company_name.country_code) FROM info_type, person_info, company_name WHERE company_name.country_code IS NULL AND person_info.note IS NOT NULL AND info_type.id = person_info.info_type_id;

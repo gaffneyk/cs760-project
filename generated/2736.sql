@@ -1,0 +1,1 @@
+SELECT MIN(company_type.kind) FROM company_type WHERE company_type.kind = 'miscellaneous companies';

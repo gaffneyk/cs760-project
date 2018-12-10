@@ -1,0 +1,1 @@
+SELECT MIN(kind_type.kind), MIN(cast_info.person_id), MIN(name.id), MIN(name.gender) FROM cast_info, name, kind_type WHERE name.gender != '' AND kind_type.kind IS NOT NULL AND name.id = cast_info.person_id;

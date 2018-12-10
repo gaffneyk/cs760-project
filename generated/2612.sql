@@ -1,0 +1,1 @@
+SELECT MIN(aka_name.name), MIN(cast_info.person_id), MIN(info_type.info), MIN(aka_name.person_id) FROM info_type, aka_name, cast_info WHERE info_type.info = 'pictorial' AND aka_name.name = 'Tony' AND cast_info.person_id = aka_name.person_id;
