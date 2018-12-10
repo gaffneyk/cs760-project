@@ -95,7 +95,7 @@ def hist_featurize(node, statistics):
 		high = statistics[node.left.to_sql()]['histogram_bounds'][bucket+1]
 
 		if(node.operation == '<=' or node.operation == '<' or node.operation == '>=' \
-		or node.operation == '>' or node.operation == '=' or node.operation == 'IS'):
+		or node.operation == '>' or node.operation == '=' or node.operation == 'IS' or node.operation == '!='):
 			value = node.right.to_sql().replace('\'', '')
 			if(low.isdigit() and high.isdigit() and value.isdigit()):
 				low = int(low)
@@ -157,7 +157,7 @@ def hist_featurize(node, statistics):
 def mcv_featurize(node, statistics):
 	features = []
 
-	if(statistics[node.left.to_sql()]['most_common_values'] == 'None'):
+	if(statistics[node.left.to_sql()]['most_common_values'][0] == 'None'):
 		features=[False]
 		return	features
 
@@ -166,7 +166,7 @@ def mcv_featurize(node, statistics):
 		cv = statistics[node.left.to_sql()]['most_common_values'][mcv]
 
 		if(node.operation == '<=' or node.operation == '<' or node.operation == '>=' \
-		or node.operation == '>' or node.operation == '=' or node.operation == 'IS'):
+		or node.operation == '>' or node.operation == '=' or node.operation == 'IS' or node.operation == '!='):
 			value = node.right.to_sql().replace('\'', '')
 			if(cv.isdigit() and node.right.to_sql().replace('\'', '').isdigit()):
 				cv = int(cv)
