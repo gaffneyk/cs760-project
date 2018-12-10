@@ -157,7 +157,7 @@ def hist_featurize(node, statistics):
 def mcv_featurize(node, statistics):
 	features = []
 
-	if(statistics[node.left.to_sql()]['most_common_values'][0] == 'None'):
+	if(statistics[node.left.to_sql()]['most_common_values'][0] == None):
 		features=[False]
 		return	features
 
