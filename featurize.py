@@ -156,13 +156,14 @@ def hist_featurize(node, statistics):
 #According to operation featurize the selection predicate - Most Common Value part
 def mcv_featurize(node, statistics):
 	features = []
+
+	if(statistics[node.left.to_sql()]['most_common_values'][mcv] == 'None'):
+		features=[False]
+		return	features
+
 	for mcv in range(len(statistics[node.left.to_sql()]['most_common_values'])):
 		
 		cv = statistics[node.left.to_sql()]['most_common_values'][mcv]
-
-		if(cv == 'None'):
-			features.append(False)
-			return
 
 		if(node.operation == '<=' or node.operation == '<' or node.operation == '>=' \
 		or node.operation == '>' or node.operation == '=' or node.operation == 'IS'):
