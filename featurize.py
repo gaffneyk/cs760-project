@@ -17,16 +17,16 @@ def featurize():
 
 	with open('labels.csv', 'r') as labels_file:
 		reader = csv.DictReader(labels_file)
-		features = OrderedDict()
+		features = dict()
 
 		for row in reader:
 			with open(os.path.join(args.sql_dir, row['filename']), 'r') as sql_file:
 				sql = sql_file.read()
 				selections = featurize_selections(sql)
 				join_graph = featurize_join_graph(sql)
-				features[int(row['filename'].split('.')[0])]=(join_graph+selections)
+				features[int(row['filename'].split('.')[0])]=([row['filename']]+join_graph+selections)
 
-	print(features)
+	features = OrderedDict(sorted(features.items()))
 	with open('data.csv', 'w', newline='') as csv_file:
 		wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 		for row in features:
