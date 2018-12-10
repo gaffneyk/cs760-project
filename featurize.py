@@ -28,7 +28,7 @@ def featurize():
 
 	features = OrderedDict(sorted(features.items()))
 	with open('data.csv', 'w', newline='') as csv_file:
-		wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+		wr = csv.writer(csv_file, quoting=csv.QUOTE_NONE)
 		for row in features:
 			wr.writerow(features[row])
 
