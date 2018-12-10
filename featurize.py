@@ -24,7 +24,7 @@ def featurize():
 				sql = sql_file.read()
 				selections = featurize_selections(sql)
 				join_graph = featurize_join_graph(sql)
-				features[int(row['filename'].split('.')[0])]=([row['filename']]+join_graph+selections)
+				features[int(row['filename'].split('.')[0])]=(join_graph+selections)
 
 	features = OrderedDict(sorted(features.items()))
 	with open('data.csv', 'w', newline='') as csv_file:
