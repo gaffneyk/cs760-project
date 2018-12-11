@@ -239,7 +239,7 @@ def featurize_tables(sql):
 	for predicate in selection_predicates+join_predicates:
 
 		featuresDict[predicate.to_sql().split('.')[0]] = [tables[predicate.to_sql().split('.')[0]]]
-		print(predicate.to_sql().split('.')[0])
+	#	print(predicate.to_sql().split('.')[0])
 
 	features = []
 	for name in featuresDict:
