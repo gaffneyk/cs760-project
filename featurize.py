@@ -25,7 +25,9 @@ def featurize():
 				selections = featurize_selections(sql)
 				join_graph = featurize_join_graph(sql)
 				tables = featurize_tables(sql)
-				features[int(row['filename'].split('.')[0])]=(tables+join_graph+selections)
+
+				features[int(row['filename'].split('.')[0])]=(tables+join_graph+selections) + [row['execution_time']]
+
 
 	features = OrderedDict(sorted(features.items()))
 	with open('data.csv', 'w', newline='') as csv_file:
@@ -79,7 +81,7 @@ def featurize_selections(sql):
 	for name in featuresDict:
 		features = features+featuresDict[name] 
 
-	print(len(features))	
+	# print(len(features))
 	return [int(item) for item in features]
 
 #According to operation featurize the selection predicate - Histogram part

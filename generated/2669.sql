@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link) FROM link_type WHERE link_type.link = 'edited from';

@@ -1,0 +1,1 @@
+SELECT MIN(keyword.keyword) FROM keyword WHERE keyword.keyword = 'baseball-game';

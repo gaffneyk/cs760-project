@@ -1,0 +1,1 @@
+SELECT MIN(title.production_year), MIN(complete_cast.movie_id), MIN(movie_info.movie_id), MIN(movie_info.note) FROM title, movie_info, complete_cast WHERE title.production_year >= 2011 AND movie_info.note IS NOT NULL AND movie_info.movie_id = complete_cast.movie_id;

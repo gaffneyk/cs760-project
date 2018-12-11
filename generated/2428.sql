@@ -1,0 +1,1 @@
+SELECT MIN(link_type.link), MIN(movie_link.link_type_id), MIN(link_type.id) FROM link_type, movie_link WHERE link_type.link IS NOT NULL AND link_type.id = movie_link.link_type_id;

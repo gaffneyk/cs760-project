@@ -1,0 +1,1 @@
+SELECT MIN(movie_info.info_type_id), MIN(info_type.id), MIN(title.title), MIN(movie_info.note) FROM title, info_type, movie_info WHERE movie_info.note = '(certificate #37629)' AND title.title != 'A Visita da Velha Senhora' AND info_type.id = movie_info.info_type_id;

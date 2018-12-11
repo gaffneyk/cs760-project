@@ -1,0 +1,1 @@
+SELECT MIN(kind_type.kind), MIN(kind_type.id), MIN(title.kind_id) FROM title, kind_type WHERE kind_type.kind IN ('tv movie', 'video game', 'movie', 'tv mini series', 'tv series', 'episode', 'video movie') AND kind_type.id = title.kind_id;

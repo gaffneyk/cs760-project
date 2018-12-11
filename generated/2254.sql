@@ -1,0 +1,1 @@
+SELECT MIN(name.name), MIN(movie_info_idx.info) FROM name, movie_info_idx WHERE name.name = 'Smith, Steve' AND movie_info_idx.info = '6.8';

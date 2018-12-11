@@ -1,0 +1,1 @@
+SELECT MIN(title.production_year), MIN(char_name.name), MIN(company_type.kind) FROM char_name, company_type, title WHERE company_type.kind = 'special effects companies' AND title.production_year >= 1988 AND char_name.name IS NOT NULL;
