@@ -1,27 +1,30 @@
 import numpy as np
-from collections import defaultdict
-from imblearn.combine import SMOTEENN
-from sklearn import neural_network, feature_selection, model_selection, metrics
+from collections import Counter, defaultdict
+from imblearn import over_sampling, under_sampling, combine
+from sklearn import neural_network, svm, ensemble, feature_selection, model_selection, metrics
 import warnings
-
 
 warnings.filterwarnings('ignore')
 
 
 def main():
     data = np.loadtxt('data.csv', delimiter=',')
-    estimator = neural_network.MLPClassifier(hidden_layer_sizes=(200,), solver='sgd')
+    estimator = ensemble.GradientBoostingClassifier()
+    k_fold = model_selection.StratifiedKFold(n_splits=5)
+    feature_selector = feature_selection.VarianceThreshold()
+    resampler = under_sampling.RandomUnderSampler(ratio=0.5)
+    model_selector = model_selection.GridSearchCV(estimator, param_grid={
+        'hidden_layer_sizes': ((20,), (200,)),
+        'max_iter': (10, 200),
+    })
     train_and_evaluate(
-        data,
-        estimator,
-        k_fold=model_selection.StratifiedKFold(n_splits=5),
+        data=data,
+        estimator=estimator,
+        k_fold=k_fold,
         is_classifier=True,
-        feature_selector=feature_selection.VarianceThreshold(),
-        resampler=SMOTEENN(),
-        model_selector=model_selection.GridSearchCV(estimator, param_grid={
-            'hidden_layer_sizes': ((20,), (200,)),
-            'max_iter': (10, 20),
-        })
+        class_split=8,
+        feature_selector=feature_selector,
+        resampler=resampler
     )
 
 
@@ -51,7 +54,13 @@ def train_and_evaluate(data, estimator, k_fold, is_classifier, class_split=5, fe
         # resample imbalanced data
         if resampler is not None:
             print('Resampling data...')
+            print('Class counts before resampling: {}'.format(', '.join('{}: {}'.format(label, count)
+                                                                        for label, count in
+                                                                        sorted(Counter(y_train).items()))))
             x_train, y_train = resampler.fit_resample(x_train, y_train)
+            print('Class counts after resampling: {}'.format(', '.join('{}: {}'.format(label, count)
+                                                                       for label, count in
+                                                                       sorted(Counter(y_train).items()))))
 
         # perform hyperparameter tuning
         if model_selector is not None:
