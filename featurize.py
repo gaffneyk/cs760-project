@@ -24,7 +24,8 @@ def featurize():
 				sql = sql_file.read()
 				selections = featurize_selections(sql)
 				join_graph = featurize_join_graph(sql)
-				features[int(row['filename'].split('.')[0])]=(join_graph+selections)
+				tables = featurize_tables(sql)
+				features[int(row['filename'].split('.')[0])]=(tables+join_graph+selections)
 
 	features = OrderedDict(sorted(features.items()))
 	with open('data.csv', 'w', newline='') as csv_file:
@@ -214,6 +215,35 @@ def mcv_featurize(node, statistics):
 		elif(node.operation == 'IN'):
 			features.append(flag)
 			
+	return features
+
+#creates features on table attributes
+def featurize_tables(sql):
+
+	tables_file = open('tables.json')
+	tables = json.load(tables_file)
+	
+	node = parser.parse(sql)
+	
+	#print(tables['company_type'])
+
+	featuresDict = {name: [0]for name in tables} 
+
+
+	featuresDict = OrderedDict(sorted(featuresDict.items()))
+
+	selection_predicates = ast.get_selections(node)
+	join_predicates = ast.get_joins(node)
+	for predicate in selection_predicates+join_predicates:
+
+		featuresDict[predicate.to_sql().split('.')[0]] = [tables[predicate.to_sql().split('.')[0]]]
+		print(predicate.to_sql().split('.')[0])
+
+	features = []
+	for name in featuresDict:
+		features = features+featuresDict[name] 
+
+	#print(featuresDict)	
 	return features
 
 
