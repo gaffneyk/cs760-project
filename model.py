@@ -1,4 +1,5 @@
 import numpy as np
+from collections import defaultdict
 from imblearn.combine import SMOTEENN
 from sklearn import neural_network, feature_selection, model_selection, metrics
 
@@ -19,6 +20,8 @@ def train_and_evaluate(data, model, k_fold, is_classifier, class_split=5, featur
     # split data into vectors and labels
     x = np.array([d[:-1] for d in data])
     y = np.array([0 if d[-1] < class_split else 1 for d in data]) if is_classifier else np.array([d[-1] for d in data])
+
+    scores = defaultdict(list)
 
     for train_index, test_index in k_fold.split(x, y):
         # split data into train and test
@@ -43,14 +46,19 @@ def train_and_evaluate(data, model, k_fold, is_classifier, class_split=5, featur
         # use the model to make predictions on the test data
         y_pred = [model.predict([xi]) for xi in x_test]
 
-        # display scores
+        # record scores
         if is_classifier:
-            print('Mean accuracy: {}'.format(metrics.accuracy_score(y_test, y_pred)))
-            print('Precision: {}'.format(metrics.precision_score(y_test, y_pred)))
-            print('Recall: {}'.format(metrics.recall_score(y_test, y_pred)))
+            scores['accuracy'].append(metrics.accuracy_score(y_test, y_pred)),
+            scores['precision'].append(metrics.precision_score(y_test, y_pred)),
+            scores['recall'].append(metrics.recall_score(y_test, y_pred))
         else:
-            print('Mean absolute error: {}'.format(metrics.mean_absolute_error(y_test, y_pred)))
-            print('R2 score: {}'.format(metrics.r2_score(y_test, y_pred)))
+            scores['absolute error'].append(metrics.mean_absolute_error(y_test, y_pred)),
+            scores['r2 score'].append(metrics.r2_score(y_test, y_pred))
+
+    # display scores
+    for score_key, score_values in scores.items():
+        print('Mean {}: {}'.format(score_key, np.mean(score_values)))
+        print('Standard deviation {}: {}'.format(score_key, np.std(score_values)))
 
 
 if __name__ == '__main__':
